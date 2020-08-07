@@ -1,0 +1,122 @@
+body {
+  display: flex;
+  background-color: black;
+}
+
+#clock {
+  margin: auto;
+}
+
+#svgClock {
+  height: 90vh;
+  width: 90vh;
+}
+
+.circle {
+  cx: 45vh;
+  cy: 45vh;
+}
+
+#rim {
+  r: 44vh;
+}
+
+#center {
+  r: 1.5vh;
+}
+
+.ellipse {
+  cx: 45vh;
+  cy: 15vh;
+  rx: .65vh;
+  ry: 2.5vh;
+  stroke: fuchsia;
+  stroke-width: 2;
+  fill: url(#ellipseGradient);
+  filter: drop-shadow(0 0 .5vh fuchsia);
+  transform-origin: 45vh 45vh;
+}
+
+.numbers {
+  font-size: 6.5vh;
+  font-weight: 900;
+  font-family: monospace;
+  stroke: aqua;
+  transform-origin: 45vh 45vh;
+  cursor: default;
+  /*filter: drop-shadow(0 0 .5vh aqua);
+  /*filter: drop-shadow(0 0 .5vh hsla(0, 0%, 0%, 0));*/
+  transition: filter 250ms;
+}
+
+.numbers:hover {
+
+}
+
+.hands {
+  rx: .5vh;
+  ry: .5vh;
+  fill: url("#handGradient");
+  filter: drop-shadow(0 .5vh .05vh black);
+  transform-origin: 45vh 45vh;
+}
+
+#sHand {
+  x: 44.5vh;
+  y: 13vh;
+  height: 30vh;
+  width: 1vh;
+}
+
+#mHand {
+  x: 44.25vh;
+  y: 23vh;
+  height: 20vh;
+  width: 1.5vh;
+}
+
+#hHand {
+  x: 44vh;
+  y: 29vh;
+  height: 14vh;
+  width: 2vh;
+}
+
+.handShadows {
+  rx: .5vh;
+  ry: .5vh;
+  fill: black;
+  transform-origin: 46vh 46vh;
+  filter: url("#blur");
+}
+
+#sHandShadow {
+  x: 45.5vh;
+  y: 14vh;
+  height: 30vh;
+  width: 1vh;
+}
+
+#mHandShadow {
+  x: 45.25vh;
+  y: 24vh;
+  height: 20vh;
+  width: 1.5vh;
+}
+
+#hHandShadow {
+  x: 45vh;
+  y: 30vh;
+  height: 14vh;
+  width: 2vh;
+}
+
+#digitalTime {
+  font-family: monospace;
+  font-weight: bold;
+  font-size: 6vh;
+  stroke: aqua;
+  transform: translate(22.5vh, 55vh);
+  filter: drop-shadow(0 0 .5vh aqua) drop-shadow(.75vh .75vh .2vh black);
+  cursor: default;
+}

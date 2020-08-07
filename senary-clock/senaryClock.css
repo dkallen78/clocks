@@ -1,0 +1,15 @@
+/*
+#clockCanvas, #handCanvas {
+  display: flex;
+  margin: auto;
+  background: transparent;
+}
+*/
+
+body {
+  background-color: black;
+}
+
+.canvas {
+  position: absolute;
+}

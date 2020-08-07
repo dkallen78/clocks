@@ -1,0 +1,34 @@
+body {
+  background-color: black;
+}
+
+#clock {
+  display: flex;
+  width: 20rem;
+  height: 10rem;
+  margin: auto;
+  padding: 0 2rem;
+  background-image: linear-gradient(black, black, white, black, black);
+  box-shadow: inset .5rem 0 1rem .1rem black, inset -.5rem 0 1rem .1rem black;
+}
+
+.dial {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  font-size: 5rem;
+  perspective: 25rem;
+}
+
+.face {
+  position: absolute;
+  padding: .25rem;
+  background-color: white;
+  background-clip: padding-box;
+  border: .2rem solid black;
+  border-radius: .5rem;
+  box-shadow: inset .1rem -.1rem .5rem black;
+  transform-origin: center center -5rem;
+  transition: transform 500ms;
+}

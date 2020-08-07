@@ -1,0 +1,44 @@
+body {
+  display: flex;
+  background-color: black;
+}
+
+/*#clock {
+  margin: auto;
+}*/
+
+#svgClock {
+  height: 500px;
+  width: 500px;
+}
+
+.circle {
+  cx: 250px;
+  cy: 250px;
+}
+
+#rim {
+  r: 240px;
+}
+
+.ellipse {
+  cx: 250px;
+  cy: 45px;
+  rx: 5px;
+  ry: 15px;
+  fill: url(#ellipseGradient);
+  filter: drop-shadow(0 0 .5vh fuchsia);
+  transform-origin: 250px 250px;
+}
+
+.numbers {
+  font-size: 2rem;
+  font-weight: 900;
+  font-family: monospace;
+  stroke: aqua;
+  transform-origin: 250px 250px;
+  cursor: default;
+  filter: drop-shadow(0 0 .5vh aqua);
+  /*filter: drop-shadow(0 0 .5vh hsla(0, 0%, 0%, 0));*/
+  transition: filter 250ms;
+}

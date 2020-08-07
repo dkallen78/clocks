@@ -1,0 +1,163 @@
+<html>
+  <head>
+    <title>Martian Clock</title>
+    <!--<link rel="stylesheet" type="text/css" href="senaryClock.css" />-->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      body {
+        font-family: monospace;
+      }
+    </style>
+  </head>
+  <body>
+    <button type="button" onclick="doTime()">doTime</button>
+
+    <div id="msd">
+    </div>
+  </body>
+  <!--<script src="senaryClock.js"></script>-->
+  <script>
+
+    function insertTextNode(element, text) {
+      //----------------------------------------------------//
+      //Inserts a text node into an element                 //
+      //element-> element: the element into which the       //
+      //node is inserted                                    //
+      //string-> text: the string of the text node          //
+      //----------------------------------------------------//
+
+      let node = document.createTextNode(text);
+      element.appendChild(node);
+    }
+
+    function insertLineBreak(element, repeat = 1) {
+      //----------------------------------------------------//
+      //Inserts a <br /> element into another element one   //
+      //or multiple times                                   //
+      //element-> element: the element into which the       //
+      //<br /> isinserted                                   //
+      //integer-> repeat(optional): is the number of        //
+      //elements to insert                                  //
+      //----------------------------------------------------//
+
+      for (let i = 0; i < repeat; i++) {
+        let lineBreak = document.createElement("br");
+        element.appendChild(lineBreak);
+      }
+    }
+
+    function doTime() {
+
+      function julianDateUTC(now) {
+        //----------------------------------------------------//
+        //Calculates the Julian Date (JD) based on            //
+        //milliseconds elapsed since the start of the         //
+        //Unix epoch (00:00 Jan 1, 1970)                      //
+        //integer-> now: ms since Jan 1, 1970                 //
+        //----------------------------------------------------//
+
+        //
+        //Days between start of Julian epoch and start of Unix epoch
+        const j2u = 2440587.5;
+
+        return (now / mspd) + j2u;
+      }
+
+      function julianDateTT(now) {
+        //----------------------------------------------------//
+        //Calculates the Terrestrial Time (TT) based on       //
+        //the JD                                              //
+        //integer-> now: ms since Jan 1, 1970                 //
+        //----------------------------------------------------//
+
+        //
+        //Leap Seconds
+        const ls = 37;
+
+        //
+        //Difference in seconds between Terrestrial Time (TT)
+        //and International Atomic Time (TIA)
+        const dif = 32.184;
+
+        return (julianDateUTC(now) + ((ls + dif) / spd));
+      }
+
+      function marsSolDate(now) {
+        //----------------------------------------------------//
+        //Calculates the Mars Sol Date (MSD) based on         //
+        //the TT                                              //
+        //integer-> now: ms since Jan 1, 1970                 //
+        //----------------------------------------------------//
+
+        //
+        //Dahys between start of Julian epoch
+        //and start of Martian epoch
+        const j2m = 2405522.0028779;
+
+        //
+        //Ration of length of Earth day to Martian Sol
+        const solRatio = 1.0274912517;
+
+        return ((julianDateTT(now) - j2m) / solRatio);
+      }
+
+      function martianTime(now) {
+        //console.clear();
+
+        let sols = marsSolDate(now);
+
+        let exactHours = ((sols % 1) * 24);
+        let hours = Math.floor(exactHours).toString().padStart(2, 0);
+
+        let exactMinutes = ((sols % 1) * 1440);
+        let minutes = (Math.floor(exactMinutes) % 60).toString().padStart(2, 0);
+
+        let exactSeconds = ((sols % 1) * spd);
+        let seconds = (Math.floor(exactSeconds) % 60).toString().padStart(2, 0);
+
+        let milliseconds = ((sols % 1) * mspd);
+        let ms = (Math.floor(milliseconds) % 1000).toString().padStart(2, 0);
+
+        return `${hours}:${minutes}:${seconds}:${ms}`;
+      }
+
+      //
+      //Milliseconds in a day
+      const mspd = 86400000;
+
+      //
+      //Seconds per day
+      const spd = 86400;
+
+      let msdDiv = document.getElementById("msd");
+
+      let refreshInterval = setInterval(function() {
+        let time = new Date();
+        let now = time.getTime();
+        msdDiv.innerHTML = "";
+
+        let text = `Milliseconds since start of the UNIX epoch: ${now}`;
+        insertTextNode(msdDiv, text);
+        insertLineBreak(msdDiv);
+
+        text = `Julian Date (UTC): ${julianDateUTC(now)}`;
+        insertTextNode(msdDiv, text);
+        insertLineBreak(msdDiv);
+
+        text = `Julian Date (TT) : ${julianDateTT(now)}`;
+        insertTextNode(msdDiv, text);
+        insertLineBreak(msdDiv);
+
+        text = `Mars Sol Date (MSD): ${marsSolDate(now)}`;
+        insertTextNode(msdDiv, text);
+        insertLineBreak(msdDiv);
+
+        text = `Coordinated Mars Time (MTC): ${martianTime(now)}`;
+        insertTextNode(msdDiv, text);
+        insertLineBreak(msdDiv);
+      }, 10);
+
+    }
+  </script>
+</html>
