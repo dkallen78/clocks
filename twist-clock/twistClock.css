@@ -1,0 +1,72 @@
+body {
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  font-family: monospace;
+  background-color: black;
+  background-image: linear-gradient(to left, black, black, black, black, white, black, black, black, black);
+  /*background-image: radial-gradient(farthest-side at 50% 90%, white 10%, black),
+                    linear-gradient(to left, black, black, black, black, white, black, black, black, black);*/
+}
+
+
+#clock {
+  display: grid;
+  align-content: center;
+  grid-row-gap: .5rem;
+}
+
+#hoursMinutes {
+  margin: auto;
+  height: 8rem;
+  perspective: 25rem;
+  perspective-origin: center bottom;
+}
+
+#hoursMinutes span {
+  position: absolute;
+  padding: .5rem;
+  font-size: 7rem;
+  background-color: white;
+  background-clip: padding-box;
+  border: .1rem solid black;
+  border-radius: .5rem;
+  transition: all 1000ms;
+}
+
+.hours {
+  display: inline-block;
+  right: 50%;
+  transform: rotateY(-35deg);
+  transform-origin: right bottom 0;
+  box-shadow: inset .1rem -.1rem .5rem black;
+  background-image: linear-gradient(to left, white, rgba(0, 0, 0, .3));
+}
+
+.minutes {
+  display: inline-block;
+  transform: rotateY(35deg);
+  transform-origin: left bottom 0;
+  box-shadow: inset -.1rem -.1rem .5rem black;
+  background-image: linear-gradient(to right, white, rgba(0, 0, 0, .3));
+}
+
+#seconds {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 3rem auto;
+  perspective: 15rem;
+}
+
+.secondsFace {
+  position: absolute;
+  padding: .2rem;
+  background-color: white;
+  font-size: 2.5rem;
+  border: .1rem solid black;
+  border-radius: .25rem;
+  box-shadow: inset .02rem -.02rem .25rem black;
+  transform-origin: center center -10rem;
+  transition: all 1000ms;
+}
