@@ -3,6 +3,8 @@ body {
   justify-content: center;
   height: 100vh;
   font-family: monospace;
+  font-weight: bold;
+  color: hsl(0, 0%, 10%);
   background-color: black;
   background-image: linear-gradient(to left, black 45%, white 50%, black 55%);
 }
