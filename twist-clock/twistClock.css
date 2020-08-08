@@ -47,7 +47,7 @@ body {
   transform: rotateY(35deg);
   transform-origin: left bottom 0;
   box-shadow: inset -.1rem -.1rem .5rem black,
-                    1rem 1rem 5rem .05rem rgba(255, 255, 255, .5);
+                    1rem -1rem 5rem .05rem rgba(255, 255, 255, .5);
   background-image: linear-gradient(to right, white, rgba(0, 0, 0, .3));
 }
 
@@ -67,7 +67,7 @@ body {
   border: .1rem solid black;
   border-radius: .25rem;
   box-shadow: inset .02rem -.02rem .25rem black,
-                    0 0 5rem .05rem rgba(255, 255, 255, .5);
+                    0 0 5rem 1rem rgba(255, 255, 255, .5);
   transform-origin: center center -10rem;
   transition: all 1000ms;
 }
