@@ -4,9 +4,7 @@ body {
   height: 100vh;
   font-family: monospace;
   background-color: black;
-  background-image: linear-gradient(to left, black, black, black, black, white, black, black, black, black);
-  /*background-image: radial-gradient(farthest-side at 50% 90%, white 10%, black),
-                    linear-gradient(to left, black, black, black, black, white, black, black, black, black);*/
+  background-image: linear-gradient(to left, black 45%, white 50%, black 55%);
 }
 
 
@@ -39,7 +37,8 @@ body {
   right: 50%;
   transform: rotateY(-35deg);
   transform-origin: right bottom 0;
-  box-shadow: inset .1rem -.1rem .5rem black;
+  box-shadow: inset .1rem -.1rem .5rem black,
+                    -1rem -1rem 5rem .05rem rgba(255, 255, 255, .5);
   background-image: linear-gradient(to left, white, rgba(0, 0, 0, .3));
 }
 
@@ -47,7 +46,8 @@ body {
   display: inline-block;
   transform: rotateY(35deg);
   transform-origin: left bottom 0;
-  box-shadow: inset -.1rem -.1rem .5rem black;
+  box-shadow: inset -.1rem -.1rem .5rem black,
+                    1rem 1rem 5rem .05rem rgba(255, 255, 255, .5);
   background-image: linear-gradient(to right, white, rgba(0, 0, 0, .3));
 }
 
@@ -66,7 +66,8 @@ body {
   font-size: 2.5rem;
   border: .1rem solid black;
   border-radius: .25rem;
-  box-shadow: inset .02rem -.02rem .25rem black;
+  box-shadow: inset .02rem -.02rem .25rem black,
+                    0 0 5rem .05rem rgba(255, 255, 255, .5);
   transform-origin: center center -10rem;
   transition: all 1000ms;
 }
