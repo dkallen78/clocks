@@ -1,0 +1,44 @@
+:root {
+  --x1: 5%;
+  --x2: 37%;
+  --x3: 63%;
+  --x4: 95%;
+  --y1: 5%;
+  --y2: 37%;
+  --y3: 63%;
+  --y4: 95%;
+  --swatch-size: 50vh;
+}
+
+@font-face {
+  font-family: "Swatch";
+  src:  local('fonts/SWATRG_.ttf') format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+#swatch {
+  height: var(--swatch-size);
+  width: var(--swatch-size);
+  background-color: red;
+  display: block;
+  margin: auto;
+}
+
+#swatchCross {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 4rem;
+  height: var(--swatch-size);
+  width: var(--swatch-size);
+  background-color: white;
+  clip-path: polygon(var(--x2) var(--y1), var(--x3) var(--y1), var(--x3) var(--y2),
+                      var(--x4) var(--y2), var(--x4) var(--y3), var(--x3) var(--y3),
+                      var(--x3) var(--y4), var(--x2) var(--y4), var(--x2) var(--y3),
+                      var(--x1) var(--y3), var(--x1) var(--y2), var(--x2) var(--y2));
+}
+
+#swatchTime {
+  font-family: "Swatch";
+}
