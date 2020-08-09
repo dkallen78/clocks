@@ -12,9 +12,8 @@
 
 @font-face {
   font-family: "swatch";
-  src: url("fonts/swatch-it.ttf.eot");
-  src: url("fonts/swatch-it.ttf.woff");
-  /*src: url("fonts/SWATRG_.ttf") format("truetype");*/
+  src: url("fonts/Swatch-it.ttf.eot");
+  src: url("fonts/Swatch-it.ttf.woff");
   font-weight: normal;
   font-style: normal;
 }
