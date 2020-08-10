@@ -1,0 +1,173 @@
+<html>
+  <head>
+    <title>
+      Clock Portfolio
+    </title>
+    <link rel="stylesheet" type="text/css" href="clocks.css" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <body>
+    <header>
+      <svg>
+        <defs>
+          <linearGradient id="textGradient">
+            <stop offset="0%" stop-color="orangered"></stop>
+            <stop offset="100%" stop-color="gold"></stop>
+          </linearGradient>
+        </defs>
+        <text fill="url(#textGradient)" x="50%" y="50%" text-anchor="middle" dominant-baseline="middle">
+          Clock Portfolio
+        </text>
+      </svg>
+      <!--<h1>Clock Portfolio</h1>-->
+    </header>
+    <div class="line"></div>
+    <section id="analogClocks">
+      <h2>Analog Clocks</h2>
+      <nav>
+        <a href="senary-clock/senaryClock.html">Senary Clock (Canvas)</a> |
+        <a href="senary-clock/senaryClockSVG.html">Senary Clock (SVG)</a> |
+        <a href="mars-clock/martianClockSVG.html">Martian Clock</a> |
+        <a href="metric-clock/metricClockSVG.html">Metric Clock</a>
+      </nav>
+      <article id="synthwaveCanvas">
+        <span>Synthwave<br />Canvas</span>
+        <p>
+          The <a href="senary-clock/senaryClock.html">Senary Clock</a> I made was
+          inspired by a <a href = "https://bcd.nootch.net/binary">binary clock</a>
+          I saw online and I wanted to do something similar. I went with a senary
+          (base 6) clock because 6 was divisible by 60 (seconds/minutes), 12, and
+          24 (hours).
+        </p>
+        <p>
+          The animation for this clock relies on erasing and redrawing the hands once
+          every 10 ms. Their outer and inner position are calculated via sine and cosine
+          functions.
+        </p>
+      </article>
+      <article id="synthwaveSVG">
+        <span>Synthwave<br />SVG</span>
+        <p>
+          I made the <a href="senary-clock/senaryClockSVG.html">SVG version</a> because
+          I wasn't satisfied with the lack of responsiveness in the original. I wanted
+          a clock that would change size based on the vertical size of the window
+          so I remade my original clock with SVG elements. I also refined the style
+          of it so it looks better.
+        </p>
+        <p>
+          This clock was animated by making tiny rotational adjustments to the hands
+          every 10 ms. The drawback to this technique was that if I added shadows
+          to the hands, they would rotate along with the hand, causing them to cast
+          in the wrong direction. The solution was to create a second set of hands
+          and offset them and make them appear like shadows.
+        </p>
+      </article>
+      <article id="synthwaveMars">
+        <span>Synthwave<br />Mars</span>
+        <p>
+          The <a href="mars-clock/martianClockSVG.html">Martian Clock</a> was inspired
+          by my friend who quiped that I should make a clock that tells the time
+          on Mars. This turned into a big research project that taught me a lot about
+          different time measurements for different purposes.
+        </p>
+        <p>
+          I followed the same methodology as NASA to make this clock, dividing the
+          24 hours, 37 minutes, and 22 seconds of the Martian rotation period into
+          24 equal periods for hours, 1,440 equal periods for minutes, 86,400 for
+          seconds, and 86,400,000 for milliseconds. So you'll notice that the second
+          hand runs just a bit slower than the ones on our terrestrial clocks.
+        </p>
+      </article>
+      <article id="synthwaveMetric">
+        <span>Synthwave<br />Metric</span>
+        <p>
+          After researching clocks for weeks it's inevitable that I would come across
+          the short lived <a href="metric-clock/metricClockSVG.html">Metric Clock</a>.
+          It has been proposed a few times throughout history and was briefly implemented
+          during the French Revolution. Unfortunately for metric time, the inertia
+          of 100s of years of sexagesimal time prevails to this day.
+        </p>
+        <p>
+          The challenge for this clock was in how to derive the units of time. With
+          a traditional clock made with JavaScript, one typically works from smaller
+          units to larger units since the Date object returns units of time in sexagesimal
+          units. With decimal time, I had to start with the 86,400,000 ms in a day,
+          and begin subdividing downward.
+        </p>
+      </article>
+    </section>
+    <div class="line"></div>
+    <section id="digitalClocks">
+      <h2>Digital Clocks</h2>
+      <nav>
+        <a href="spin-clock/spinClock.html">Spin Clock</a> |
+        <a href="twist-clock/twistClock.html">Twist Clock</a> |
+        <a href="swatch-clock/swatchTime.html">Swatch Clock</a> |
+        <a href="neon-pixel-1/neonPixel1.html">Neon Pixel Clock</a>
+      </nav>
+      <article id="spinClock">
+        <span>Spin<br />Clock</span>
+        <p>
+          I made the <a href="spin-clock/spinClock.html">Spin Clock</a> because of
+          a random flash of inspiration. I wanted to make a clock that used transforms
+          to have the time rotate away behind itself.
+        </p>
+        <p>
+          The math behind this clock was a lot simpler because I only had to keep
+          track of the current time and update every second. I still check the time
+          every 10 ms but I only have to update the page every second. The animations
+          were handled by the transition property in the CSS and clever use of timing
+          using JavaScript.
+        </p>
+      </article>
+      <article id="twistClock">
+        <span>Twist<br />Clock</span>
+        <p>
+          The <a href="twist-clock/twistClock.html">Twist Clock</a> came about because
+          I wanted to push what I could do with rotations. I liked the aesthetics
+          of the Spin Clock but I wanted to put a different spin on the idea with a
+          rotating "dial" of current, upcoming, and past seconds.
+        </p>
+        <p>
+          The tricky part to this clock was getting all of the elements to move properly
+          and update after every second. It was 2 parts planning to 1 part trial
+          and error. Another difficulty was giving everything absolute positioning
+          while still making it responsive to the window size.
+        </p>
+      </article>
+      <article id="swatchClock">
+        <span>Swatch<br />Clock</span>
+        <p>
+          In 1998 Swatch announced their version of decimal time with
+          <a href="swatch-clock/swatchTime.html">Swatch Internet Time</a>, or .beat
+          time. The idea is the day is divided into 1,000 equal parts called ".beats".
+          There are no time zones in .beat time, instead it's based on the time zone
+          in Biel, Switzerland where Swatch headquarters is located. Swatch Internet
+          Time is prefixed with an "@" followed by 3 digit fractional part of 1,000.
+        </p>
+        <p>
+          This time is fairly easy to render given the tools of the JavaScript Date
+          object and the application of a bit of math. The hardest part for me was
+          finding a way to display a variable-width font as if it were monospaced.
+      </article>
+      <article id="neonPixel1">
+        <span>Neon Pixel<br />Clock</span>
+        <p>
+          I originally wanted to make a clock with 7-segment digit display but I opted
+          to tackle the slightly easier task of a <a href="neon-pixel-1/neonPixel1.html">
+          15-pixel digit clock</a> instead. I saw an image of something similar online
+          and I wanted to try to recreate it.
+        </p>
+        <p>
+          I used a 2-dimensional array to define the pixels for each digit and made
+          a function to translate that into HTML and CSS. To get the pixels to sort
+          themselves properly I used a grid layout. To get the digits to fit nicely
+          in their container I used a flex layout.
+        </p>
+      </article>
+    </section>
+  </body>
+  <script>
+  </script>
+</html>
