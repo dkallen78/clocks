@@ -18,22 +18,34 @@
   font-style: normal;
 }
 
+body {
+  display: flex;
+  height: 100vh;
+  margin: 0;
+  background-image: linear-gradient(to top right, black 50%, gray);
+}
+
 #swatch {
+  display: block;
+  margin: auto;
   height: var(--swatch-size);
   width: var(--swatch-size);
   background-color: red;
-  display: block;
-  margin: auto;
+  border-radius: .5rem;
+  box-shadow: inset .25rem -.25rem .5rem rgba(0, 0, 0, .85),
+              inset -.25rem .25rem .5rem rgba(255, 255, 255, .35);
+  background-image: linear-gradient(to top right, rgba(100,0,0,.25) 50%, rgba(255,100,100,.75));
 }
+
 
 #swatchCross {
   display: flex;
-  justify-content: center;
   align-items: center;
   font-size: 3rem;
   height: var(--swatch-size);
   width: var(--swatch-size);
   background-color: white;
+  background-image: linear-gradient(to top right, rgb(220,220,220), white 50%);
   clip-path: polygon(var(--x2) var(--y1), var(--x3) var(--y1), var(--x3) var(--y2),
                       var(--x4) var(--y2), var(--x4) var(--y3), var(--x3) var(--y3),
                       var(--x3) var(--y4), var(--x2) var(--y4), var(--x2) var(--y3),
@@ -41,5 +53,17 @@
 }
 
 #swatchTime {
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  width: 90%;
   font-family: "swatch";
+  text-align: center;
+}
+
+.face {
+  width: 3rem;
+  display: inline-block;
+  font-weight: bold;
+  text-shadow: -.2rem .2rem .2rem gray;
 }
