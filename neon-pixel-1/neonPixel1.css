@@ -1,0 +1,72 @@
+:root {
+  --digit-color: aqua;
+  --spacer-color: deeppink;
+  --dot-size: .85rem;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: black;
+}
+
+#face {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 35vh;
+  width: 70vh;
+  border: .4rem solid var(--spacer-color);
+  border-radius: 50%;
+  box-shadow: 0 0 .5rem var(--spacer-color),
+              inset 0 0 .5rem var(--spacer-color);
+}
+
+#clock {
+  display: flex;
+  padding: 1rem;
+}
+
+#clock > div {
+  margin: 0 .25rem;
+}
+
+.digit {
+  display: grid;
+  justify-content: space-around;
+  align-content: space-around;
+  height: 5.3rem;
+  width: 3.2rem;
+}
+
+.digit div {
+  height: var(--dot-size);
+  width: var(--dot-size);
+  background-color: var(--digit-color);
+  box-shadow: 0 0 .5rem var(--digit-color);
+  border-radius: 50%;
+}
+
+.space {
+  display: grid;
+  justify-content: center;
+  width: 1rem;
+}
+
+.space div {
+  height: var(--dot-size);
+  width: var(--dot-size);
+  background-color: var(--spacer-color);
+  box-shadow: 0 0 .5rem var(--spacer-color);
+  border-radius: 50%;
+}
+
+.space div:first-child {
+  grid-row: 2 / 2;
+}
+
+.space div:last-child {
+  grid-row: 4 / 4;
+}
