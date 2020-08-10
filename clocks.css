@@ -1,0 +1,172 @@
+:root {
+  --text-color: black;
+  --shadow-color: black;
+}
+
+html {
+  background-color: black;
+  background-image: linear-gradient(to right, black, fuchsia 40%);
+}
+
+body {
+  margin: 2rem;
+  padding: 1rem;
+  text-align: center;
+  box-shadow: 0 0 1rem 0.5rem fuchsia,
+              inset 0 0 .5rem var(--shadow-color);
+  border: .2rem solid black;
+  border-radius: 1rem;
+  background-image: linear-gradient(to left, white 60%, black);
+}
+
+header {
+  margin: 2rem auto;
+  font-size: 6rem;
+  font-weight: bold;
+  letter-spacing: .35rem;
+  stroke: black;
+  stroke-width: 0.1rem;
+  filter: drop-shadow(-.5rem .1rem .2rem black);
+}
+
+svg {
+  height: 8rem;
+  width: 50rem;
+}
+
+/*h1 {
+  display: table;
+  margin: 1rem auto;
+  padding: .75rem;
+  color: transparent;
+  font-size: 5rem;
+  letter-spacing: .5rem;
+  box-shadow: 0 0 .5rem .25rem var(--shadow-color),
+              inset 0 0 .25rem var(--shadow-color);
+  border-radius: 1rem;
+  background-image: linear-gradient(to left, gold, orangered);
+  background-clip: text;
+  -webkit-background-clip: text;
+}*/
+
+section {
+  margin-bottom: 4rem;
+}
+
+article {
+  display: grid;
+  grid-template-columns: 3rem auto;
+  grid-template-rows: auto auto;
+  grid-column-gap: .5rem;
+  grid-row-gap: .5rem;
+  margin: 1rem 0;
+  padding: 1rem;
+  background-image: linear-gradient(to left, rgba(0, 0, 0, 0) 40%, aqua);
+  border-image: linear-gradient(to left, rgba(0, 0, 0, 0) 40%, black) 1 10%;
+  border-style: solid;
+  border-width: .25rem;
+  background-clip: padding-box;
+
+}
+
+article span {
+  grid-column: 1 / 2;
+  grid-row: 1 / 3;
+  writing-mode: vertical-lr;
+  text-orientation: upright;
+  text-transform: uppercase;
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 1rem;
+  color: fuchsia;
+  text-shadow: 0 0 .125rem var(--text-color),
+                0 0 .25rem var(--text-color),
+                0 0 .5rem var(--text-color),
+                0 0 .75rem var(--text-color),
+                0 0 1rem var(--text-color);
+  cursor: default;
+}
+
+/*article span::first-letter {
+
+}*/
+
+h2 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  font-size: 4rem;
+  color: white;
+  text-shadow: 0 0 .1rem black,
+               0 0 .25rem black,
+               0 0 .5rem black,
+               0 0 .75rem black,
+               0 0 1rem black;
+}
+
+h3 {
+  margin-top: 0;
+  font-size: 1.5rem;
+}
+
+nav {
+  padding: .4rem;
+  box-shadow: inset 0 0 .3rem 0.1rem black;
+  border-radius: .5rem;
+  background-image: linear-gradient(to left, gold, orangered);
+  font-family: sans-serif;
+  font-weight: bold;
+}
+
+nav a {
+  padding: .3rem;
+  color: var(--text-color);
+  font-size: 1rem;
+  transition: all 250ms;
+}
+
+nav a:hover {
+  color: white;
+  text-shadow: 0 0 .1rem var(--text-color),
+                0 0 .25rem var(--text-color),
+                0 0 .5rem var(--text-color),
+                0 0 .75rem var(--text-color),
+                0 0 1rem var(--text-color);
+}
+
+section p {
+  margin: auto;
+  font-size: 1.25rem;
+  font-family: sans-serif;
+  text-align: justify;
+  text-indent: 2rem;
+}
+
+p a {
+  color: var(--text-color);
+  transition: all 250ms;
+}
+
+p a:hover {
+  color: white;
+  text-shadow: 0 0 .1rem var(--text-color),
+                0 0 .25rem var(--text-color),
+                0 0 .5rem var(--text-color),
+                0 0 .75rem var(--text-color),
+                0 0 1rem var(--text-color);
+}
+
+.line {
+  height: .25rem;
+  background-image: linear-gradient(to left,
+                                    rgba(0, 0, 0, 0),
+                                    gold,
+                                    orangered,
+                                    gold,
+                                    rgba(0, 0, 0, 0));
+}
+
+.inset {
+  font-size: 1rem;
+  text-align: left;
+  margin-left: 2rem;
+}
