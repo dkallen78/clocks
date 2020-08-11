@@ -22,6 +22,7 @@ body {
   border-radius: 50%;
   box-shadow: 0 0 .5rem var(--spacer-color),
               inset 0 0 .5rem var(--spacer-color);
+  background-image: linear-gradient(to top right, #f0f0, #ff149338);            
 }
 
 #clock {
@@ -47,6 +48,7 @@ body {
   background-color: var(--digit-color);
   box-shadow: 0 0 .5rem var(--digit-color);
   border-radius: 50%;
+  transition: width 250ms ease-out, height 750ms;
 }
 
 .space {

@@ -102,9 +102,35 @@ const digit = {
 
 function makeDigit(target, digit) {
 
-  target.innerHTML = "";
+  //target.innerHTML = "";
+  //console.log(target.id);
 
-  for (let i = 0; i < digit.length; i++) {
+  let pixels = document.querySelectorAll("#" + target.id + " > div");
+  if (pixels) {
+    for (let i = 0; i < pixels.length; i++) {
+      pixels[i].style.width = "0rem";
+      pixels[i].style.height = "0rem";
+    }
+  }
+
+  setTimeout(function() {
+    target.innerHTML = "";
+    for (let i = 0; i < digit.length; i++) {
+      for (let j = 0; j < digit[0].length; j++) {
+
+        if (digit[i][j]) {
+          let div = document.createElement("div");
+          div.style.gridRow = `${i + 1} / ${i + 2}`;
+          div.style.gridColumn = `${j + 1} / ${j + 2}`;
+          target.appendChild(div);
+        }
+
+      }
+    }
+  }, 760);
+
+
+  /*for (let i = 0; i < digit.length; i++) {
     for (let j = 0; j < digit[0].length; j++) {
 
       if (digit[i][j]) {
@@ -116,6 +142,14 @@ function makeDigit(target, digit) {
 
     }
   }
+
+  let pixels = document.querySelectorAll("#" + target.id + " > div");
+  if (pixels) {
+    for (let i = 0; i < pixels.length; i++) {
+      pixels[i].style.width = "0rem";
+    }
+  }*/
+
 }
 
 let hour1 = document.getElementById("hour1");
@@ -157,7 +191,8 @@ let refreshInterval = setInterval(function() {
     makeDigit(second1, digit[secondNow[0]]);
     makeDigit(second2, digit[secondNow[1]]);
 
-    currentSeconds = secondNow;
+    shownSeconds = secondNow;
   }
 
+  //clearInterval(refreshInterval);
 }, 10);
