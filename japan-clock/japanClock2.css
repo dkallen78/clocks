@@ -1,0 +1,77 @@
+:root {
+  --flag-margin: 10vw;
+  --shadow-distance: .1rem;
+  --shadow-color: black;
+}
+
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  background-image: linear-gradient(to top, orangered, gold);
+  overflow: hidden;
+}
+
+img {
+  position: absolute;
+}
+
+#background {
+  z-index: -1;
+  min-height: 101vh;
+  min-width: 101vw;
+}
+
+#foreground {
+  z-index: 2;
+  top: -5rem;
+  width: 101vw;
+  filter: blur(.125rem);
+}
+
+#flag {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-height: calc(100vh - var(--flag-margin));
+  max-width: calc((100vh - var(--flag-margin)) + ((100vh - var(--flag-margin)) / 2));
+  width: calc(100vw - var(--flag-margin));
+  height: calc((100vw - var(--flag-margin)) - ((100vw - var(--flag-margin)) / 3));
+  background-color: white;
+  box-shadow: 0 0 .125rem black,
+              0 0 .25rem black,
+              0 0 .5rem black,
+              0 0 .75rem black,
+              0 0 1rem black;
+}
+
+svg {
+  position: absolute;
+  max-height: calc(100vh - var(--flag-margin));
+  max-width: calc((100vh - var(--flag-margin)) + ((100vh - var(--flag-margin)) / 2));
+  width: calc(100vw - var(--flag-margin));
+  height: calc((100vw - var(--flag-margin)) - ((100vw - var(--flag-margin)) / 3));
+}
+
+svg > text {
+  font-family: monospace;
+  font-weight: bold;
+  fill: none;
+  stroke: black;
+  filter: drop-shadow(-.1rem .1rem .04rem black);
+  stroke-width: .03rem;
+}
+
+#sun {
+  height: 60%;
+  width: calc((100% - (100% / 3)) * .6);
+  background-color: rgb(255, 0, 20);
+  border-radius: 50%;
+}
+
+/*#sun > span {
+  text-align: center;
+  font-weight: bold;
+}*/
