@@ -1,0 +1,39 @@
+<html>
+  <head>
+    <title>
+      Fraction Clock
+    </title>
+    <link rel="stylesheet" type="text/css" href="fractionClock.css" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <body>
+    <div id="main">
+      <math>
+        <mfrac>
+          <mrow>
+            <mn id="hours" class="time"></mn>
+            <mfrac>
+              <mrow>
+                <mn id="minutes" class="time"></mn>
+                <mfrac>
+                  <mrow>
+                    <mn id="seconds" class="time"></mn>
+                    <mfrac>
+                      <mn id="ms"></mn>
+                      <mn>1000</mn>
+                    </mfrac>
+                  </mrow>
+                  <mn>60</mn>
+                </mfrac>
+              </mrow>
+              <mn id="hrDen">60</mn>
+            </mfrac>
+          </mrow>
+          <mn id="bottom">24</mn>
+        </mfrac>
+      </math>
+    </div>
+  </body>
+  <script src="fractionClock.js"></script>
+</html>

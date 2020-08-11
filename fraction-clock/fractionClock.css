@@ -1,0 +1,32 @@
+:root {
+  --time: rgba(255, 0, 0, 1);
+  --chalk: rgba(245, 245, 245, 1);
+  --board: rgba(34, 139, 34, 1);
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: var(--board);
+  color: var(--chalk);
+  text-shadow: 0 0 .5rem #002e00;
+}
+
+#main {
+  padding: .5rem;
+  font-size: 10rem;
+  border: .5rem solid var(--chalk);
+  border-radius: 1rem;
+}
+
+math {
+  font-family: monospace;
+}
+
+.time {
+  color: var(--time);
+  font-weight: bold;
+}
