@@ -1,3 +1,8 @@
+:root {
+  --glow: deeppink;
+  --glow-alpha: rgba(255, 20, 147, .5);
+}
+
 body {
   display: flex;
   justify-content: center;
@@ -6,7 +11,8 @@ body {
   font-weight: bold;
   color: hsl(0, 0%, 10%);
   background-color: black;
-  background-image: linear-gradient(to left, black 45%, white 50%, black 55%);
+  background-image: linear-gradient(to left, black 45%, var(--glow) 50%, black 55%);
+  cursor: default;
 }
 
 
@@ -40,7 +46,7 @@ body {
   transform: rotateY(-35deg);
   transform-origin: right bottom 0;
   box-shadow: inset .1rem -.1rem .5rem black,
-                    -1rem -1rem 5rem .05rem rgba(255, 255, 255, .5);
+                    -1rem -1rem 5rem .05rem var(--glow-alpha);
   background-image: linear-gradient(to left, white, rgba(0, 0, 0, .3));
 }
 
@@ -49,7 +55,7 @@ body {
   transform: rotateY(35deg);
   transform-origin: left bottom 0;
   box-shadow: inset -.1rem -.1rem .5rem black,
-                    1rem -1rem 5rem .05rem rgba(255, 255, 255, .5);
+                    1rem -1rem 5rem .05rem var(--glow-alpha);
   background-image: linear-gradient(to right, white, rgba(0, 0, 0, .3));
 }
 
@@ -69,7 +75,7 @@ body {
   border: .1rem solid black;
   border-radius: .25rem;
   box-shadow: inset .02rem -.02rem .25rem black,
-                    0 0 5rem 1rem rgba(255, 255, 255, .5);
+                    0 0 5rem 1rem var(--glow-alpha);
   transform-origin: center center -10rem;
   transition: all 1000ms;
 }
