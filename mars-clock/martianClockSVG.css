@@ -1,3 +1,7 @@
+:root {
+  --number-glow: white;
+}
+
 body {
   display: flex;
   background-color: black;
@@ -15,6 +19,7 @@ body {
 .circle {
   cx: 45vh;
   cy: 45vh;
+  fill: url(#faceGradient);
 }
 
 #rim {
@@ -23,6 +28,7 @@ body {
 
 #center {
   r: 1.5vh;
+  fill: url(#centerGradient);
 }
 
 .ellipse {
@@ -30,10 +36,7 @@ body {
   cy: 15vh;
   rx: .65vh;
   ry: 2.5vh;
-  stroke: fuchsia;
-  stroke-width: 2;
   fill: url(#ellipseGradient);
-  filter: drop-shadow(0 0 .5vh fuchsia);
   transform-origin: 45vh 45vh;
 }
 
@@ -41,11 +44,9 @@ body {
   font-size: 6.5vh;
   font-weight: 900;
   font-family: monospace;
-  stroke: aqua;
+  stroke: var(--number-glow);
   transform-origin: 45vh 45vh;
   cursor: default;
-  /*filter: drop-shadow(0 0 .5vh aqua);
-  /*filter: drop-shadow(0 0 .5vh hsla(0, 0%, 0%, 0));*/
   transition: filter 250ms;
 }
 
@@ -57,7 +58,6 @@ body {
   rx: .5vh;
   ry: .5vh;
   fill: url("#handGradient");
-  filter: drop-shadow(0 .5vh .05vh black);
   transform-origin: 45vh 45vh;
 }
 
@@ -87,7 +87,7 @@ body {
   ry: .5vh;
   fill: black;
   transform-origin: 46vh 46vh;
-  filter: url("#blur");
+  filter: opacity(.75) blur(.1rem);
 }
 
 #sHandShadow {
@@ -115,8 +115,8 @@ body {
   font-family: monospace;
   font-weight: bold;
   font-size: 6vh;
-  stroke: aqua;
+  stroke: var(--number-glow);
   transform: translate(22.5vh, 55vh);
-  filter: drop-shadow(0 0 .5vh aqua) drop-shadow(.75vh .75vh .2vh black);
+  filter: drop-shadow(0 0 .5vh var(--number-glow)) drop-shadow(.75vh .75vh .2vh black);
   cursor: default;
 }

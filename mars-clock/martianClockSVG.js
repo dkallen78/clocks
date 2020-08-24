@@ -26,9 +26,9 @@ function makeCircle(parent) {
   let circle = makeSVG("circle", "rim");
   circle.classList.add("circle");
 
-  circle.style.stroke = "aqua";
-  circle.style.strokeWidth = 3;
-  circle.style.fill = "none";
+  //circle.style.stroke = "aqua";
+  //circle.style.strokeWidth = 3;
+  //circle.style.fill = "none";
 
   parent.appendChild(circle);
 
@@ -44,7 +44,7 @@ function makeCenter(parent) {
 
   let circle = makeSVG("circle", "center");
   circle.classList.add("circle");
-  circle.style.fill = "aqua";
+  //circle.style.fill = "aqua";
   parent.appendChild(circle);
 }
 
@@ -178,7 +178,7 @@ function illuminateHour(hour) {
   let oldHour = ((hour + 24) - 2) % 24;
   let numbers = document.getElementsByClassName("numbers");
   numbers[oldHour].style.filter = "";
-  numbers[newHour].style.filter = "drop-shadow(0 0 .5vh aqua)";
+  numbers[newHour].style.filter = "drop-shadow(0 0 .5vh white)";
 }
 
 function martianTime(now) {
@@ -286,9 +286,9 @@ makeNumbers(svg, 24);
 //This is the radial gradient for the ellipses
 let ellipseDef = makeSVG("defs");
   let ellipseGrad = makeSVG("radialGradient", "ellipseGradient");
-    addStop(ellipseGrad, "0%", "violet");
-    addStop(ellipseGrad, "50%", "orchid");
-    addStop(ellipseGrad, "100%", "fuchsia");
+    addStop(ellipseGrad, "0%", "white");
+    addStop(ellipseGrad, "50%", "rgba(255,255,255,.5)");
+    addStop(ellipseGrad, "100%", "rgba(0,0,0,0)");
 ellipseDef.appendChild(ellipseGrad);
 svg.appendChild(ellipseDef);
 
@@ -301,6 +301,24 @@ let hands = makeSVG("defs");
     addStop(handGrad, "100%", "gold");
 hands.appendChild(handGrad);
 svg.appendChild(hands);
+
+//
+//Clock face
+let faceFill = makeSVG("defs");
+  let faceGrad = makeSVG("linearGradient", "faceGradient");
+  faceGrad.setAttribute("gradientTransform", "rotate(90)");
+    addStop(faceGrad, "30%", "rgba(0,0,0,.25)");
+    addStop(faceGrad, "100%", "darkred");
+faceFill.appendChild(faceGrad);
+svg.appendChild(faceFill);
+
+let centerFill = makeSVG("defs");
+  let centerGrad = makeSVG("linearGradient", "centerGradient");
+  centerGrad.setAttribute("gradientTransform", "rotate(90)");
+    addStop(centerGrad, "0%", "black");
+    addStop(centerGrad, "100%", "gray");
+centerFill.appendChild(centerGrad);
+svg.appendChild(centerFill);
 
 //
 //This is the shadow filter for the hands
@@ -343,10 +361,10 @@ let refreshInterval = setInterval(function() {
   //
   //Determines if the numbers will "flicker"
   //this cycle
-  if ((getRandomNumber(0, 200) === 1) && !working) {
+  /*if ((getRandomNumber(0, 200) === 1) && !working) {
     working = true;
     flicker();
-  }
+  }*/
 
   let times = martianTime(Date.now());
 
