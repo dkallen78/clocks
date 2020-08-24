@@ -29,6 +29,7 @@ body {
   border: .2rem solid black;
   border-radius: .5rem;
   box-shadow: inset .1rem -.1rem .5rem black;
+  cursor: default;
   transform-origin: center center -5rem;
   transition: transform 500ms;
 }
