@@ -1,3 +1,7 @@
+#frame {
+  display: flex;
+}
+
 .top {
   clip-path: polygon(0% 0%, 100% 0%, 100% 48%, 0% 48%);
 }
@@ -6,21 +10,19 @@
   clip-path: polygon(0% 52%, 100% 52%, 100% 100%, 0% 100%);
 }
 
-#seconds {
+.dial {
   display: flex;
   justify-content: center;
-  /*background-color: black;
-  color: white;*/
   font-family: monospace;
-  width: 4rem;
+  width: 5.5rem;
   height: 2rem;
   text-align: center;
   font-size: 2rem;
   font-weight: bold;
-  perspective: 10rem;
+  perspective: 20rem;
 }
 
-#seconds span {
+.dial span {
   position: absolute;
   background-color: black;
   color: white;
