@@ -23,12 +23,33 @@ function makeElement(type, id, ...classes) {
 }
 
 function changeTime(old, time, target, unit) {
+  //----------------------------------------------------//
+  //Changes the displayed time                          //
+  //----------------------------------------------------//
+  //old(string): the previous unit of time that is      //
+  //  to be changed                                     //
+  //time(integer): the new unit of time to display      //
+  //target(HTML element): where to display the updated  //
+  //  time                                              //
+  //unit(string): the unit of time, used so the previous//
+  //  element can be found and removed                  //
+  //----------------------------------------------------//
+  //return(string): the currently displayed time        //
+  //----------------------------------------------------//
 
+  //
+  //Converts the time integer into a string and pads it
+  //  with 0s if neccessary
   time = time.toString(10).padStart(2, 0);
 
+  //
+  //Gets the elements that are displaying the current time
   let oldTop = document.getElementById(`${old}T${unit}`);
   let oldBottom = document.getElementById(`${old}B${unit}`);
 
+  //
+  //If the old elements aren't null (they exist) then they
+  //  are removed after a timeout
   if (oldTop) {
     oldTop.style.transform = "rotateX(-180deg)";
 
@@ -38,21 +59,30 @@ function changeTime(old, time, target, unit) {
     setTimeout(function() {
       oldBottom.parentNode.removeChild(oldBottom);
     }, 400);
-
   }
 
+  //
+  //Creates a new element to display the updated time, prerotated
+  //  so it can be flipped into place
   let spanBottom = makeElement("span", `${time}B${unit}`, "bottom");
   spanBottom.style.transform = "rotateX(180deg)";
   spanBottom.innerHTML = time;
+  //
+  //Inserts the element "under" the topmost element
   target.insertBefore(spanBottom, target.childNodes[0]);
   setTimeout(function() {
     spanBottom.style.transform = "rotateX(0deg)";
   }, 10);
+  //
+  //Places the flipped time above the old time so it's visible
   setTimeout(function() {
     spanBottom.style.zIndex = "2";
-    oldBottom.style.zIndex = "-1";
+    if (oldBottom) {oldBottom.style.zIndex = "-1";}
+    //oldBottom.style.zIndex = "-1";
   }, 150);
-
+  //
+  //Creates a new element to display the top portion of the
+  //  updated time and places it "under" the topmost element
   let spanTop = makeElement("span", `${time}T${unit}`, "top");
   spanTop.innerHTML = time;
   target.insertBefore(spanTop, target.childNodes[0]);
@@ -61,17 +91,21 @@ function changeTime(old, time, target, unit) {
 }
 
 let refreshInterval = setInterval(function() {
-
+  //
+  //Checks the time every 10 milliseconds
   let time = new Date();
-
+  //
+  //Updates the seconds
   if (currentSeconds !== time.getSeconds().toString(10).padStart(2, 0)) {
     currentSeconds = changeTime(currentSeconds, time.getSeconds(), seconds, "sec");
   }
-
+  //
+  //Updates the minutes
   if (currentMinutes !== time.getMinutes().toString(10).padStart(2, 0)) {
     currentMinutes = changeTime(currentMinutes, time.getMinutes(), minutes, "min");
   }
-
+  //
+  //Updates the hours
   if (currentHours !== time.getHours().toString(10).padStart(2, 0)) {
     currentHours = changeTime(currentHours, time.getHours(), hours, "hr");
   }
