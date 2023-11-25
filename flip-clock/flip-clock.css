@@ -1,0 +1,33 @@
+#frame {
+  display: flex;
+  justify-content: center;
+}
+
+.top {
+  clip-path: polygon(0% 0%, 100% 0%, 100% 48%, 0% 48%);
+}
+
+.bottom {
+  clip-path: polygon(0% 52%, 100% 52%, 100% 100%, 0% 100%);
+}
+
+.dial {
+  display: flex;
+  justify-content: center;
+  font-family: monospace;
+  width: 5.5rem;
+  height: 2rem;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  perspective: 20rem;
+}
+
+.dial span {
+  position: absolute;
+  background-color: black;
+  color: white;
+  font-size: 4rem;
+  /*backface-visibility: hidden;*/
+  transition: all 400ms linear;
+}
