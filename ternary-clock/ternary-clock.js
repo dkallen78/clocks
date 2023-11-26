@@ -151,7 +151,7 @@ function resetBand(band) {
 	}
 }
 
-function clear
+//function clear
 
 function backfillBand(band, time) {
 	//----------------------------------------------------//
