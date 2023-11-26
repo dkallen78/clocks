@@ -1,0 +1,10 @@
+#svgBox {
+	height: 90vh;
+	width: 90vh;
+}
+
+path {
+	color: white;
+	border: 1px solid black;
+	transition: all 1000ms;
+}

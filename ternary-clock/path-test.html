@@ -1,0 +1,152 @@
+<html>
+  <head>
+    <title>
+      Fraction Clock
+    </title>
+    <link rel="stylesheet" type="text/css" href="ternary-clock.css" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+			#svgBox {
+				height: 90vh;
+				width: 90vh;
+			}
+    </style>
+  </head>
+  <body>
+    <div id="main">
+      <svg id="svgBox" xmlns="http://www.w3.org/2000/svg">
+        
+      </svg>
+      
+    </div>
+  </body>
+  <script>
+
+
+		function doBox() {
+			let svgBox = document.getElementById("svgBox");
+			return svgBox.getBoundingClientRect();
+		}
+		
+    function makeSVG(type) {
+      let svg = document.createElementNS("http://www.w3.org/2000/svg", type);
+        if (arguments.length > 1) {svg.id = arguments[1]};
+      return svg;
+    }
+
+		function makeArcs(n, r1, r2, prefix) {
+			//----------------------------------------------------//
+			//Makes the paths that draw the circle chunks in the 	//
+			//	SVG element																				//
+			//----------------------------------------------------//
+			//n(integer): number of circle chunks to draw					//
+			//r1(float): lower bound of the circle chunks					//
+			//r2(float): upper bound of the circle chunks					//
+			//prefix(string): prefix to put before chunk's number //
+			//	to give each chunk a unique ID										//
+			//----------------------------------------------------//
+
+			let angleDelta = 360 / n;
+			let angleA = -90;
+			let angleB = angleA + angleDelta - 1;
+			let path;
+
+			for (let i = 0; i < n; i++) {
+
+				path = makeSVG("path");
+				path.setAttribute("id", `${prefix}${i}`);
+				path.setAttribute("d", `
+					M ${center.x + (Math.cos(angleA * (Math.PI / 180)) * (r1 * box.width))} 
+						${center.y + (Math.sin(angleA * (Math.PI / 180)) * (r1 * box.width))} 
+					L ${center.x + (Math.cos(angleA * (Math.PI / 180)) * (r2 * box.width))} 
+						${center.y + (Math.sin(angleA * (Math.PI / 180)) * (r2 * box.width))} 
+					A ${r2 * box.width} ${r2 * box.height} 0 0 1 
+						${center.x + (Math.cos(angleB * (Math.PI / 180)) * (r2 * box.width))} 
+						${center.y + (Math.sin(angleB * (Math.PI / 180)) * (r2 * box.width))}
+					L ${center.x + (Math.cos(angleB * (Math.PI / 180)) * (r1 * box.width))} 
+						${center.y + (Math.sin(angleB * (Math.PI / 180)) * (r1 * box.width))} 
+					A ${r1 * box.width} ${r1 * box.height} 0 0 0 
+						${center.x + (Math.cos(angleA * (Math.PI / 180)) * (r1 * box.width))} 
+						${center.y + (Math.sin(angleA * (Math.PI / 180)) * (r1 * box.width))} 
+				`);
+
+				svgBox.appendChild(path);
+
+				angleA = angleB + 1;
+				angleB = angleA + angleDelta - 1;
+			}
+		}
+
+
+		let box = doBox();
+
+		let center = {
+			x: box.width * .5,
+			y: box.height * .5
+		}
+
+		let svgBox = document.getElementById("svgBox");
+
+		makeArcs(3, 0.01, 0.25, "t");
+
+		makeArcs(9, .26, .375, "h");
+
+		makeArcs(27, .385, .4375, "m");
+
+		makeArcs(81, .4475, .75, "s");
+
+		/*let path1 = makeSVG("path");
+		path1.setAttribute("d", `
+			M ${center.x + (Math.cos(-90 * (Math.PI / 180)) * (.01 * box.width))} 
+				${center.y + (Math.sin(-90 * (Math.PI / 180)) * (.01 * box.width))} 
+			L ${center.x + (Math.cos(-90 * (Math.PI / 180)) * (.25 * box.width))} 
+				${center.y + (Math.sin(-90 * (Math.PI / 180)) * (.25 * box.width))} 
+			A ${.25 * box.width} ${.25 * box.height} 0 0 1 
+				${center.x + (Math.cos(29 * (Math.PI / 180)) * (.25 * box.width))} 
+				${center.y + (Math.sin(29 * (Math.PI / 180)) * (.25 * box.width))}
+			L ${center.x + (Math.cos(29 * (Math.PI / 180)) * (.01 * box.width))} 
+				${center.y + (Math.sin(29 * (Math.PI / 180)) * (.01 * box.width))} 
+			A ${.01 * box.width} ${.01 * box.height} 0 0 0 
+				${center.x + (Math.cos(-90 * (Math.PI / 180)) * (.01 * box.width))} 
+				${center.y + (Math.sin(-90 * (Math.PI / 180)) * (.01 * box.width))} 
+		`);
+
+		let path2 = makeSVG("path");
+		path2.setAttribute("d", `
+			M ${center.x + (Math.cos(30 * (Math.PI / 180)) * (.01 * box.width))} 
+				${center.y + (Math.sin(30 * (Math.PI / 180)) * (.01 * box.width))} 
+			L ${center.x + (Math.cos(30 * (Math.PI / 180)) * (.25 * box.width))} 
+				${center.y + (Math.sin(30 * (Math.PI / 180)) * (.25 * box.width))} 
+			A ${.25 * box.width} ${.25 * box.height} 0 0 1 
+				${center.x + (Math.cos(149 * (Math.PI / 180)) * (.25 * box.width))} 
+				${center.y + (Math.sin(149 * (Math.PI / 180)) * (.25 * box.width))}
+			L ${center.x + (Math.cos(149 * (Math.PI / 180)) * (.01 * box.width))} 
+				${center.y + (Math.sin(149 * (Math.PI / 180)) * (.01 * box.width))} 
+			A ${.01 * box.width} ${.01 * box.height} 0 0 0 
+				${center.x + (Math.cos(30 * (Math.PI / 180)) * (.01 * box.width))} 
+				${center.y + (Math.sin(30 * (Math.PI / 180)) * (.01 * box.width))} 
+		`);
+
+		let path3 = makeSVG("path");
+		path3.setAttribute("d", `
+			M ${center.x + (Math.cos(150 * (Math.PI / 180)) * (.01 * box.width))} 
+				${center.y + (Math.sin(150 * (Math.PI / 180)) * (.01 * box.width))} 
+			L ${center.x + (Math.cos(150 * (Math.PI / 180)) * (.25 * box.width))} 
+				${center.y + (Math.sin(150 * (Math.PI / 180)) * (.25 * box.width))} 
+			A ${.25 * box.width} ${.25 * box.height} 0 0 1 
+				${center.x + (Math.cos(269 * (Math.PI / 180)) * (.25 * box.width))} 
+				${center.y + (Math.sin(269 * (Math.PI / 180)) * (.25 * box.width))}
+			L ${center.x + (Math.cos(269 * (Math.PI / 180)) * (.01 * box.width))} 
+				${center.y + (Math.sin(269 * (Math.PI / 180)) * (.01 * box.width))} 
+			A ${.01 * box.width} ${.01 * box.height} 0 0 0 
+				${center.x + (Math.cos(150 * (Math.PI / 180)) * (.01 * box.width))} 
+				${center.y + (Math.sin(150 * (Math.PI / 180)) * (.01 * box.width))} 
+		`);
+		
+		svgBox.appendChild(path1);
+		svgBox.appendChild(path2);
+		svgBox.appendChild(path3);*/
+
+  </script>
+</html>
