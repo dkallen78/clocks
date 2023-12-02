@@ -1,4 +1,9 @@
+#main {
+	display: flex;
+}
+
 #svgBox {
+	margin: auto;
 	height: 90vh;
 	width: 90vh;
 }
