@@ -60,6 +60,10 @@ function toRad(deg) {
 	return deg * (Math.PI / 180);
 }
 
+function toDeg(rad) {
+	return rad * (180 / Math.PI);
+}
+
 function makeArcs(n, r1, r2, prefix, className) {
 	//----------------------------------------------------//
 	//Makes the paths that draw the circle chunks in the 	//
@@ -86,17 +90,19 @@ function makeArcs(n, r1, r2, prefix, className) {
 	let radius2 = r2 * box.width;
 
 	//
-	//The angle required to leave an approximate 1% gap 
-	//	between the circle chunks
-	let angleGap1 = ((box.width * .01) * 180) / (Math.PI * radius1);
-	let angleGap2 = ((box.width * .01) * 180) / (Math.PI * radius2);
+	//The angle required to leave a 1% gap between the circle chunks
+	angleGap1 = toDeg(2 * (Math.asin((box.width * .005) / radius1)));
+	angleGap2 = toDeg(2 * (Math.asin((box.width * .005) / radius2)));
 
 	//
-	//Initial angle in degrees. -90 is the top of the circle
+	//Initial starting angle in degrees. -90 is the top of the circle. 
+	//	The extra half of an angle gap is to keep it symmetrical
 	let angleA1 = -90 + (angleGap1 / 2);
 	let angleA2 = -90 + (angleGap2 / 2);
 
-	console.log(angleGap1, angleGap2);
+	//
+	//Initial terminal angle in degrees. 
+	//	Starting angle + change in angle - constant gap
 	let angleB1 = angleA1 + angleDelta - angleGap1;
 	let angleB2 = angleA2 + angleDelta - angleGap2;
 	let path;
