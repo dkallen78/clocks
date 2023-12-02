@@ -259,10 +259,40 @@ console.log(minute);
 console.log(second);*/
 
 function makeFace() {
+	//----------------------------------------------------//
+	//I put all this in a function to keep things tidy		//
+	//I use this to make the face of the clock. It's 			//
+	//	to understand what's going on in a for loop,			//
+	//	but it lets me play with some of the variables 		//
+	//	more easily																				//
+	//----------------------------------------------------//
+
+	let classes = ["terns", "hours", "minutes", "seconds"];
+	let origin = 0;
+	//let rad = .16;
+	let rad = Math.sqrt(.33 / Math.PI);
+
+	for (let i = 3, j = 0; i <= 81; i *= 3, j++) {
+
+		//console.log(`origin + gap: ${origin + gap}`);
+		//console.log(`rad: ${rad}`);
+	
+		makeArcs (i, origin + gap, rad, classes[j][0], classes[j]);
+		origin = rad;
+		//rad += .16;
+		if (j < 2) {
+			rad = rad + (.33 / (3 ** (j + 1)));
+		} else {
+			rad = .75;
+		}
+		
+	}
 	
 }
 
-let ids = ["t", "h", "m", "s"];
+makeFace();
+
+/*let ids = ["t", "h", "m", "s"];
 let classes = ["terns", "hours", "minutes", "seconds"];
 let origin = 0;
 let count = 0;
