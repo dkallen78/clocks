@@ -48,41 +48,82 @@ function makeSVG(type, id, ...classes) {
 	return svg;
 }
 
+function toRad(deg) {
+	//----------------------------------------------------//
+	//Converts an angle in degrees to an angle in radians	//
+	//----------------------------------------------------//
+	//deg(float): angle to be converted to radians				//
+	//----------------------------------------------------//
+	//return(float): converted degrees in radians					//
+	//----------------------------------------------------//
+
+	return deg * (Math.PI / 180);
+}
+
 function makeArcs(n, r1, r2, prefix, className) {
 	//----------------------------------------------------//
 	//Makes the paths that draw the circle chunks in the 	//
 	//	SVG element																				//
 	//----------------------------------------------------//
 	//n(integer): number of circle chunks to draw					//
-	//r1(float): lower bound of the circle chunks					//
-	//r2(float): upper bound of the circle chunks					//
+	//r1(float): lower bound of the circle chunks given as//
+	//	a percentage of the SVG element size							//
+	//r2(float): upper bound of the circle chunks	given as//
+	//	a percentage of the SVG element size							//
 	//prefix(string): prefix to put before chunk's number //
 	//	to give each chunk a unique ID										//
 	//className(string): name of the class for all chunks //
 	//----------------------------------------------------//
 
+	//
+	//Change in angle for the starting point of each chunk
 	let angleDelta = 360 / n;
-	let angleA = -90;
-	let angleB = angleA + angleDelta - 1;
+
+	//
+	//The radii of my arcs converted from percentages to 
+	//	absolute units
+	let radius1 = r1 * box.width;
+	let radius2 = r2 * box.width;
+
+	//
+	//The angle required to leave an approximate 1% gap 
+	//	between the circle chunks
+	let angleGap1 = ((box.width * .01) * 180) / (Math.PI * radius1);
+	let angleGap2 = ((box.width * .01) * 180) / (Math.PI * radius2);
+
+	//
+	//Initial angle in degrees. -90 is the top of the circle
+	let angleA1 = -90 + (angleGap1 / 2);
+	let angleA2 = -90 + (angleGap2 / 2);
+
+	console.log(angleGap1, angleGap2);
+	let angleB1 = angleA1 + angleDelta - angleGap1;
+	let angleB2 = angleA2 + angleDelta - angleGap2;
 	let path;
 
 	for (let i = 0; i < n; i++) {
 
 		path = makeSVG("path");
 		path.setAttribute("id", `${prefix}${i}`);
+		//
+		//M -> move to inner counterclockwise corner
+		//L -> line to outer ccw corner
+		//A -> arc to outer cw corner
+		//L -> line to inner cw corner
+		//A -> arc to inner ccw corner
 		path.setAttribute("d", `
-			M ${center.x + (Math.cos(angleA * (Math.PI / 180)) * (r1 * box.width))} 
-				${center.y + (Math.sin(angleA * (Math.PI / 180)) * (r1 * box.width))} 
-			L ${center.x + (Math.cos(angleA * (Math.PI / 180)) * (r2 * box.width))} 
-				${center.y + (Math.sin(angleA * (Math.PI / 180)) * (r2 * box.width))} 
-			A ${r2 * box.width} ${r2 * box.height} 0 0 1 
-				${center.x + (Math.cos(angleB * (Math.PI / 180)) * (r2 * box.width))} 
-				${center.y + (Math.sin(angleB * (Math.PI / 180)) * (r2 * box.width))}
-			L ${center.x + (Math.cos(angleB * (Math.PI / 180)) * (r1 * box.width))} 
-				${center.y + (Math.sin(angleB * (Math.PI / 180)) * (r1 * box.width))} 
-			A ${r1 * box.width} ${r1 * box.height} 0 0 0 
-				${center.x + (Math.cos(angleA * (Math.PI / 180)) * (r1 * box.width))} 
-				${center.y + (Math.sin(angleA * (Math.PI / 180)) * (r1 * box.width))} 
+			M ${center.x + (Math.cos(toRad(angleA1)) * radius1)} 
+				${center.y + (Math.sin(toRad(angleA1)) * radius1)} 
+			L ${center.x + (Math.cos(toRad(angleA2)) * radius2)} 
+				${center.y + (Math.sin(toRad(angleA2)) * radius2)} 
+			A ${radius2} ${radius2} 0 0 1 
+				${center.x + (Math.cos(toRad(angleB2)) * radius2)} 
+				${center.y + (Math.sin(toRad(angleB2)) * radius2)}
+			L ${center.x + (Math.cos(toRad(angleB1)) * radius1)} 
+				${center.y + (Math.sin(toRad(angleB1)) * radius1)} 
+			A ${radius1} ${radius1} 0 0 0 
+				${center.x + (Math.cos(toRad(angleA1)) * radius1)} 
+				${center.y + (Math.sin(toRad(angleA1)) * radius1)} 
 		`);
 		path.setAttribute("fill-opacity", "0");
 		path.setAttribute("stroke", "black");
@@ -90,8 +131,10 @@ function makeArcs(n, r1, r2, prefix, className) {
 
 		svgBox.appendChild(path);
 
-		angleA = angleB + 1;
-		angleB = angleA + angleDelta - 1;
+		angleA1 = angleB1 + angleGap1;
+		angleB1 = angleA1 + angleDelta - angleGap1;
+		angleA2 = angleB2 + angleGap2;
+		angleB2 = angleA2 + angleDelta - angleGap2;
 	}
 }
 
@@ -137,31 +180,23 @@ function setSecond(s) {
 	path.setAttribute("fill-opacity", "1");
 }
 
-function resetBand(band) {
+function clearBand(band) {
 	//----------------------------------------------------//
-	//Clears the given band of formatting									//
+	//Clears the fill in a given band, one cell at a time //
 	//----------------------------------------------------//
 	//band(string): the name of the class for the given		//
 	//	band																							//
 	//----------------------------------------------------//s
 
 	let paths = document.getElementsByClassName(band);
-
-	for (let i = 0; i < paths.length; i++) {
-		paths[i].setAttribute("fill-opacity", "0");
-	}
-}
-
-function clearBand(band) {
-
-	let paths = document.getElementsByClassName(band);
 	let count = 1;
+	let clearSpeed = 81 / paths.length;
 
 	let pathClear = setInterval(function() {
 		paths[count].setAttribute("fill-opacity", "0");
 		count++;
 		if (count === paths.length) clearInterval(pathClear);
-	}, 10);
+	}, (clearSpeed * 25));
 }
 
 function backfillBand(band, time) {
@@ -231,11 +266,14 @@ let refreshInterval = setInterval(function() {
 			if (getHour() !== hour) {
 
 				if (getTern() !== tern) {
-					resetBand("hours");
+					clearBand("hours");
 					tern = getTern();
+					if (tern === 0) {
+						clearBand("terns");
+					}
 					setTern(tern);
 				}
-				resetBand("minutes");
+				clearBand("minutes");
 				hour = getHour();
 				setHour(hour);
 			}
