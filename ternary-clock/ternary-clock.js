@@ -11,6 +11,11 @@ function getSVGsize() {
 	return svgBox.getBoundingClientRect();
 }
 
+function getElementSize(elem) {
+
+	return elem.getBoundingClientRect();
+}
+
 function getMilliseconds() {
 	//----------------------------------------------------//
 	//Returns the number of milliseconds that have passed	//
@@ -269,7 +274,32 @@ function backfillBand(band, time) {
 	}
 }
 
-let box = getSVGsize();
+function pulseCell(type, time) {
+	let current = document.getElementById(`${type}${time}`);
+	//let deets = getElementSize(current);
+	let deets = current.getBoundingClientRect();
+	let centerX = (deets.x + (deets.width / 2)) - box.x;
+	let centerY = (deets.y + (deets.height / 2)) - box.y;
+	//
+	//transform-origin applies to the bounding box of the element, 
+	//	and getBoundingClientRect gets pixels relative to viewport, 
+	//	so to make them work, we have to do some funky looking math:
+	//	the origin is px from left edge to box + px to center of box - distance from left edge to SVG
+	//	and px from top edge to box + px to center of box - distance from top edge to SVG
+	current.style.transformOrigin = `${centerX}px ${centerY}px`;
+	setTimeout(function() {
+		current.style.transform = "scale(.95)";
+	}, 100);
+	
+	setTimeout(function() {
+		current.style.transform = "scale(1)";
+	}, 700);
+}
+
+
+let svgBox = document.getElementById("svgBox");
+let box = getElementSize(svgBox);
+//let box = getSVGsize();
 //
 //Object to make representing the center point easier
 //	to understand in the code
@@ -285,7 +315,7 @@ let maxRad = Math.sqrt(2 * ((box.width / 2) ** 2));
 //The space between the cells of the clock face
 let gap = .005;
 
-let svgBox = document.getElementById("svgBox");
+
 
 let tern = getTern();
 let hour = getHour();
@@ -330,6 +360,11 @@ let refreshInterval = setInterval(function() {
 			minute = getMinute();
 			setMinute(minute);
 		}
+
+
+		pulseCell("t", tern);
+		pulseCell("h", hour);
+		pulseCell("m", minute);
 		second = getSecond();
 		setSecond(second);
 	}
