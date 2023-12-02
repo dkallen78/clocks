@@ -278,49 +278,37 @@ function pulseCell(type, time) {
 	let current = document.getElementById(`${type}${time}`);
 	//let deets = getElementSize(current);
 	let deets = current.getBoundingClientRect();
-	let centerX = (deets.x + (deets.width / 2)) - box.x;
-	let centerY = (deets.y + (deets.height / 2)) - box.y;
-	current.style.transformOrigin = `${centerX}px ${centerY}px`
-
-	const keyframes = [
-		{transform: "scale(1)"},
-		{tranform: "scale(.95)"},
-		{transform: "scale(1)"}
-	];
-
-	const timing = {
-		duration: 500,
-		iterations: 1,
-	};
-
-	setTimeout(function() {
-		current.animate([
-			{transform: "scale(1)", fillOpacity: "1"},
-			{transform: "scale(.95)", fillOpacity: ".75"},
-			{transform: "scale(1)", fillOpacity: "1"}
-		], timing);
-	}, 100)
-
-	/*current.animate([
-		{transform: "scale(1)", fillOpacity: "1"},
-		{transform: "scale(.95)", fillOpacity: ".75"},
-		{transform: "scale(1)", fillOpacity: "1"}
-	], timing);*/
-
 	//
 	//transform-origin applies to the bounding box of the element, 
 	//	and getBoundingClientRect gets pixels relative to viewport, 
 	//	so to make them work, we have to do some funky looking math:
 	//	the origin is px from left edge to box + px to center of box - distance from left edge to SVG
 	//	and px from top edge to box + px to center of box - distance from top edge to SVG
-	/*current.style.transformOrigin = `${centerX}px ${centerY}px`;
-	setTimeout(function() {
-		current.style.transform = "scale(.95)";
-	}, 100);
-	
-	setTimeout(function() {
-		current.style.transform = "scale(1)";
-	}, 700);*/
+	let centerX = (deets.x + (deets.width / 2)) - box.x;
+	let centerY = (deets.y + (deets.height / 2)) - box.y;
+	current.style.transformOrigin = `${centerX}px ${centerY}px`
+
+	const timing = {
+		duration: 250,
+		iterations: 1,
+	};
+
+	/*current.animate([
+		{transform: "scale(1)", fillOpacity: "1"},
+		{transform: "scale(.95)", fillOpacity: ".75"},
+		{transform: "scale(1)", fillOpacity: "1"},
+		{transform: "scale(.95)", fillOpacity: ".75"},
+		{transform: "scale(1)", fillOpacity: "1"}
+	], timing);*/
+
+	current.animate([
+		{fillOpacity: "1"},
+		{fillOpacity: ".85"},
+		{fillOpacity: "1"},
+		/*{fillOpacity: ".75"},
+		{fillOpacity: "1"}*/
+	], timing);
+
 }
 
 
