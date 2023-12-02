@@ -61,6 +61,14 @@ function toRad(deg) {
 }
 
 function toDeg(rad) {
+	//----------------------------------------------------//
+	//Converts an angle in radians to an angle in degrees	//
+	//----------------------------------------------------//
+	//deg(float): angle to be converted to degrees				//
+	//----------------------------------------------------//
+	//return(float): converted radians in degrees					//
+	//----------------------------------------------------//
+
 	return rad * (180 / Math.PI);
 }
 
@@ -91,8 +99,8 @@ function makeArcs(n, r1, r2, prefix, className) {
 
 	//
 	//The angle required to leave a 1% gap between the circle chunks
-	angleGap1 = toDeg(2 * (Math.asin((box.width * .005) / radius1)));
-	angleGap2 = toDeg(2 * (Math.asin((box.width * .005) / radius2)));
+	angleGap1 = toDeg(2 * (Math.asin((box.width * (gap / 2)) / radius1)));
+	angleGap2 = toDeg(2 * (Math.asin((box.width * (gap / 2)) / radius2)));
 
 	//
 	//Initial starting angle in degrees. -90 is the top of the circle. 
@@ -110,7 +118,7 @@ function makeArcs(n, r1, r2, prefix, className) {
 	for (let i = 0; i < n; i++) {
 
 		path = makeSVG("path");
-		path.setAttribute("id", `${prefix}${i}`);
+		
 		//
 		//M -> move to inner counterclockwise corner
 		//L -> line to outer ccw corner
@@ -133,13 +141,19 @@ function makeArcs(n, r1, r2, prefix, className) {
 		`);
 		path.setAttribute("fill-opacity", "0");
 		path.setAttribute("stroke", "black");
+		path.setAttribute("id", `${prefix}${i}`);
 		path.classList.add(className);
 
 		svgBox.appendChild(path);
-
+		
+		//
+		//New ccw angle = old cw angle + gap
 		angleA1 = angleB1 + angleGap1;
-		angleB1 = angleA1 + angleDelta - angleGap1;
 		angleA2 = angleB2 + angleGap2;
+
+		//
+		//New cw angle = new ccw angle + angle change - gap
+		angleB1 = angleA1 + angleDelta - angleGap1;
 		angleB2 = angleA2 + angleDelta - angleGap2;
 	}
 }
@@ -229,18 +243,9 @@ let center = {
 	y: box.height * .5
 }
 
+let gap = .005;
+
 let svgBox = document.getElementById("svgBox");
-
-makeArcs(3, 0.01, 0.25, "t", "terns");
-
-makeArcs(9, .26, .375, "h", "hours");
-
-makeArcs(27, .385, .4375, "m", "minutes");
-
-makeArcs(81, .4475, .75, "s", "seconds");
-
-
-
 
 let tern = getTern();
 let hour = getHour();
@@ -252,6 +257,46 @@ console.log(tern);
 console.log(hour);
 console.log(minute);
 console.log(second);*/
+
+function makeFace() {
+	
+}
+
+let ids = ["t", "h", "m", "s"];
+let classes = ["terns", "hours", "minutes", "seconds"];
+let origin = 0;
+let count = 0;
+let rad = .25;
+
+//.25, 
+//.25 + (.25 / 2), 
+//.25 + (.25 / 2) + (.25 / 4), 
+//.25 + (.25 / 2) + (.25 / 4) + (.25 / 8)
+
+for (let i = 3; i <= 81; i *= 3) {
+
+	console.log(`origin + gap: ${origin + gap}`);
+	console.log(`rad: ${rad}`);
+
+	makeArcs (i, origin + gap, rad, ids[count], classes[count]);
+	count++;
+	origin = rad;
+	if (count < 3) {
+		rad = rad + (.25 / (2 ** count));
+	} else {
+		rad = .75;
+	}
+	
+}
+
+
+/*makeArcs(3, 0.01, 0.25, "t", "terns");
+
+makeArcs(9, .26, .375, "h", "hours");
+
+makeArcs(27, .385, .4375, "m", "minutes");
+
+makeArcs(81, .4475, .75, "s", "seconds");*/
 
 setTern(tern);
 backfillBand("terns", tern);
@@ -287,11 +332,8 @@ let refreshInterval = setInterval(function() {
 			minute = getMinute();
 			setMinute(minute);
 		}
-
 		second = getSecond();
 		setSecond(second);
-		//console.clear();
-		//console.log(`Second: ${second}`);
 	}
     
 }, 10);
