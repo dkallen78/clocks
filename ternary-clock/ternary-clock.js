@@ -184,7 +184,7 @@ function makeFace() {
 		if (j < 2) {
 			rad = rad + (radSeed / (3 ** (j + 1)));
 		} else {
-			rad = .75;
+			rad = (maxRad / box.width);
 		}
 		
 	}
@@ -270,12 +270,19 @@ function backfillBand(band, time) {
 }
 
 let box = getSVGsize();
-
+//
+//Object to make representing the center point easier
+//	to understand in the code
 let center = {
 	x: box.width * .5,
 	y: box.height * .5
 }
-
+//
+//Calculates the maximum visible radius as the distance 
+//	from the center to a corner
+let maxRad = Math.sqrt(2 * ((box.width / 2) ** 2));
+//
+//The space between the cells of the clock face
 let gap = .005;
 
 let svgBox = document.getElementById("svgBox");
