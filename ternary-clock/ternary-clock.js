@@ -58,6 +58,7 @@ function makeArcs(n, r1, r2, prefix, className) {
 	//r2(float): upper bound of the circle chunks					//
 	//prefix(string): prefix to put before chunk's number //
 	//	to give each chunk a unique ID										//
+	//className(string): name of the class for all chunks //
 	//----------------------------------------------------//
 
 	let angleDelta = 360 / n;
@@ -142,7 +143,7 @@ function resetBand(band) {
 	//----------------------------------------------------//
 	//band(string): the name of the class for the given		//
 	//	band																							//
-	//----------------------------------------------------//
+	//----------------------------------------------------//s
 
 	let paths = document.getElementsByClassName(band);
 
@@ -151,7 +152,17 @@ function resetBand(band) {
 	}
 }
 
-//function clear
+function clearBand(band) {
+
+	let paths = document.getElementsByClassName(band);
+	let count = 1;
+
+	let pathClear = setInterval(function() {
+		paths[count].setAttribute("fill-opacity", "0");
+		count++;
+		if (count === paths.length) clearInterval(pathClear);
+	}, 10);
+}
 
 function backfillBand(band, time) {
 	//----------------------------------------------------//
@@ -228,7 +239,7 @@ let refreshInterval = setInterval(function() {
 				hour = getHour();
 				setHour(hour);
 			}
-			resetBand("seconds");
+			clearBand("seconds");
 			minute = getMinute();
 			setMinute(minute);
 		}
