@@ -13,5 +13,6 @@
 path {
 	color: white;
 	border: 1px solid black;
-	transition: all 500ms;
+	transition: fill-opacity 500ms;
+	transition: transform 500ms;
 }
