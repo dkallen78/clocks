@@ -158,6 +158,39 @@ function makeArcs(n, r1, r2, prefix, className) {
 	}
 }
 
+function makeFace() {
+	//----------------------------------------------------//
+	//I put all this in a function to keep things tidy		//
+	//I use this to make the face of the clock. It's 			//
+	//	to understand what's going on in a for loop,			//
+	//	but it lets me play with some of the variables 		//
+	//	more easily																				//
+	//----------------------------------------------------//
+
+	let classes = ["terns", "hours", "minutes", "seconds"];
+	let origin = 0;
+	let radSeed = .28
+	let rad = radSeed;
+	//let rad = Math.sqrt(.33 / Math.PI);
+
+	for (let i = 3, j = 0; i <= 81; i *= 3, j++) {
+
+		//console.log(`origin + gap: ${origin + gap}`);
+		//console.log(`rad: ${rad}`);
+	
+		makeArcs (i, origin + gap, rad, classes[j][0], classes[j]);
+		origin = rad;
+		//rad += .16;
+		if (j < 2) {
+			rad = rad + (radSeed / (3 ** (j + 1)));
+		} else {
+			rad = .75;
+		}
+		
+	}
+	
+}
+
 function getTern() {
 	return Math.floor((getMilliseconds() / 28_800_000));
 }
@@ -252,81 +285,9 @@ let hour = getHour();
 let minute = getMinute();
 let second = getSecond();
 
-/*console.log(getMilliseconds());
-console.log(tern);
-console.log(hour);
-console.log(minute);
-console.log(second);*/
 
-function makeFace() {
-	//----------------------------------------------------//
-	//I put all this in a function to keep things tidy		//
-	//I use this to make the face of the clock. It's 			//
-	//	to understand what's going on in a for loop,			//
-	//	but it lets me play with some of the variables 		//
-	//	more easily																				//
-	//----------------------------------------------------//
-
-	let classes = ["terns", "hours", "minutes", "seconds"];
-	let origin = 0;
-	//let rad = .16;
-	let rad = Math.sqrt(.33 / Math.PI);
-
-	for (let i = 3, j = 0; i <= 81; i *= 3, j++) {
-
-		//console.log(`origin + gap: ${origin + gap}`);
-		//console.log(`rad: ${rad}`);
-	
-		makeArcs (i, origin + gap, rad, classes[j][0], classes[j]);
-		origin = rad;
-		//rad += .16;
-		if (j < 2) {
-			rad = rad + (.33 / (3 ** (j + 1)));
-		} else {
-			rad = .75;
-		}
-		
-	}
-	
-}
 
 makeFace();
-
-/*let ids = ["t", "h", "m", "s"];
-let classes = ["terns", "hours", "minutes", "seconds"];
-let origin = 0;
-let count = 0;
-let rad = .25;
-
-//.25, 
-//.25 + (.25 / 2), 
-//.25 + (.25 / 2) + (.25 / 4), 
-//.25 + (.25 / 2) + (.25 / 4) + (.25 / 8)
-
-for (let i = 3; i <= 81; i *= 3) {
-
-	console.log(`origin + gap: ${origin + gap}`);
-	console.log(`rad: ${rad}`);
-
-	makeArcs (i, origin + gap, rad, ids[count], classes[count]);
-	count++;
-	origin = rad;
-	if (count < 3) {
-		rad = rad + (.25 / (2 ** count));
-	} else {
-		rad = .75;
-	}
-	
-}
-
-
-/*makeArcs(3, 0.01, 0.25, "t", "terns");
-
-makeArcs(9, .26, .375, "h", "hours");
-
-makeArcs(27, .385, .4375, "m", "minutes");
-
-makeArcs(81, .4475, .75, "s", "seconds");*/
 
 setTern(tern);
 backfillBand("terns", tern);
