@@ -1,4 +1,4 @@
-# [Ternary Clock](https://dkallen78.github.io/clocks/ternary-clock/ternary-clock.html)
+# [Ternary Clock](https://dkallen78.github.io/clocks/ternary-clock/v0.1/ternary-clock-v0.1.html)
 
 This clock was inspired by a conversation I had with someone on Reddit.
 
