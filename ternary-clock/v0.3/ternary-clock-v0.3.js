@@ -19,6 +19,43 @@ class Point {
 	}
 }
 
+const time = {
+	get ms() {
+		let totalms = 0;
+
+    let newTime = new Date();
+
+    totalms += (newTime.getHours() * 3600000);
+    totalms += (newTime.getMinutes() * 60000);
+    totalms += (newTime.getSeconds() * 1000);
+    totalms += newTime.getMilliseconds();
+
+    return totalms;
+	},
+	get tern() {
+		return Math.floor((this.ms / 28_800_000));
+	},
+	get hour() {
+		let tms = this.tern * 28_800_000;
+		let hms = this.ms - tms;
+		return Math.floor((hms / 3_200_000));
+	},
+	get minute() {
+		let tms = (this.tern * 28_800_000) + (this.hour * 3_200_000);
+		let mms = this.ms - tms;
+		return Math.floor((mms / 118_518.5185));
+	},
+	get second() {
+		let tms = (this.tern * 28_800_000) + (this.hour * 3_200_000) + (this.minute * 118_518.5185);
+		let sms = this.ms - tms;
+		return Math.floor((sms / 1_463.1916));
+	},
+	setTime(id, t) {
+		let path = document.getElementById(`${id}${t}`);
+		cellUp(path);
+	}
+}
+
 function makeSVG(type, id, ...classes) {
 	//----------------------------------------------------//
 	//Makes an SVG element of the type specified          //
@@ -131,7 +168,7 @@ function makeArcs(n, r1, r2, type) {
 		`);
 		path.classList.add(type);
 
-		path.style.fillOpacity = 1;
+		path.style.fillOpacity = 0;
 		path.id = `${type[0]}${i}`;
 		path.style.transformOrigin = `${cellCenter.x}px ${cellCenter.y}px`;
 		path.dataset.vecX = cellVector.x;
@@ -180,6 +217,31 @@ function makeFace() {
 	
 }
 
+function cellUp(elem) {
+	let vecX = Number.parseFloat(elem.dataset.vecX);
+	let vecY = Number.parseFloat(elem.dataset.vecY);
+
+	elem.style.transform = `rotate3d(${vecX}, ${vecY}, 0, 0deg)`;
+  elem.style.fillOpacity = 1;
+}
+
+function cellDown(elem, fast = true) {
+	let vecX = Number.parseFloat(elem.dataset.vecX);
+	let vecY = Number.parseFloat(elem.dataset.vecY);
+
+	elem.style.transform = `rotate3d(${vecX}, ${vecY}, 0, 180deg)`;
+
+	if (fast) {
+    elem.style.fillOpacity = 0;
+  } else {
+    setTimeout(function() {
+      elem.style.fillOpacity = 0;
+    }, 125);
+  }
+}
+
+
+
 let svgBox = document.getElementById("svgBox");
 let box = svgBox.getBoundingClientRect();
 
@@ -190,3 +252,13 @@ let maxRad = Math.sqrt(2 * ((box.width / 2) ** 2));
 let gap = .005;
 
 makeFace();
+
+let tern = time.tern;
+let hour = time.hour;
+let minute = time.minute;
+let second = time.second;
+
+time.setTime("t", tern);
+time.setTime("h", hour);
+time.setTime("m", minute);
+time.setTime("s", second);
