@@ -1,4 +1,4 @@
-# [Ternary Clock](https://dkallen78.github.io/clocks/ternary-clock/v0.1/ternary-clock-v0.1.html)
+# [Ternary Clock v0.1](https://dkallen78.github.io/clocks/ternary-clock/v0.1/ternary-clock-v0.1.html)
 
 This clock was inspired by a conversation I had with someone on Reddit.
 
@@ -8,7 +8,7 @@ The hardest part was wrapping my head around drawing part of a circle with the `
 
 `2 * Math.asin((gap / 2) / radius)`
 
-# [Ternary Clock 2](https://dkallen78.github.io/clocks/ternary-clock/ternary-clock-flip.html)
+# [Ternary Clock v0.2](https://dkallen78.github.io/clocks/ternary-clock/v0.2/ternary-clock-v0.2.html)
 
 After tweaking the original clock I decided that I wanted to have the cells appear and disappear by flipping over. Rotating stuff is easy and I've done it with other clocks, but these rotations had to be around a unique vector for each cell. I basically find the center of the cell, then calculate its vector towards the center of the SVG and then rotate.
 
