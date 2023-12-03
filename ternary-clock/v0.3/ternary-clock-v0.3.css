@@ -11,7 +11,5 @@
 }
 
 path {
-	color: white;
 	transition: transform 500ms;
-  backface-visibility: hidden;
 }
