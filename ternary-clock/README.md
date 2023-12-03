@@ -17,3 +17,9 @@ After tweaking the original clock I decided that I wanted to have the cells appe
 There's some wonky behavior that starts happening if I rotate to 180 or 90 degrees that I don't fully understand but I've got clean animations right now, so I'm not going to stress it much.
 
 That's a lie. I think part of the problem is my method of finding the center is not precise and I need to make it more accurate. I'm basically just finding the center of the box that bounds the `<path>` element which *mostly* works. What I think I need to do, is store precise information on all of the cells that I can use when I need to change them.
+
+## 1AM update
+
+I fixed the wonky center/vector issue. Since I was using the bounding box to find the center, and that center to find the vector to rotate, it was throwing some of the animations off when I was doing 90 and 180 degree rotations. Now I'm directly interrogating the `d` attribute of the `<path>` element to get the coordinates for the cell. From there I can just find the midpoints between opposite corners and find a vector from the outer midpoint to the inner midpoint. And for my new and improved transform-origin I'm using the center of the two midpoints which still isn't perfect, but it's much better.
+
+I'll clean up my code and comments tomorrow.

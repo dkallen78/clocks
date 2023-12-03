@@ -12,12 +12,6 @@
 
 path {
 	color: white;
-	border: 1px solid black;
-	transition: fill-opacity 500ms;
-	transition: transform 125ms;
+	transition: transform 500ms;
   backface-visibility: hidden;
-}
-
-.unset {
-  
 }

@@ -59,7 +59,7 @@ function toDeg(rad) {
 	return rad * (180 / Math.PI);
 }
 
-function flipDown(elem) {
+function flipDown(elem, fast = true) {
 	//----------------------------------------------------//
 	//Uses a CSS transform to rotate the clock cells and  //
   //  make them invisible                               //
@@ -69,25 +69,51 @@ function flipDown(elem) {
 
   //
   //Gets details about the element in the viewport
-  let deets = elem.getBoundingClientRect();
+  let deets = cellDeets(elem);
   //
-  //Puts the center points of the elements in a variable
-  let centerX = (deets.x + (deets.width / 2)) - box.x;
-  let centerY = (deets.y + (deets.height / 2)) - box.y;
+  //Puts the center points of the elements in a 
+  let center1 = findCenter(deets.r1ccw, deets.r1cw);
+  let center2 = findCenter(deets.r2ccw, deets.r2cw);
+  let centerCell = findCenter(center1, center2);
   //
   //Ensures the elements transform about their own center
-  elem.style.transformOrigin = `${centerX}px ${centerY}px`;
+  elem.style.transformOrigin = `${centerCell[0]}px ${centerCell[1]}px`;
   //
   //Puts the vector from the center of the element to the 
   //  center of the SVG into variables
-  let vecX = (center.x - centerX);
-  let vecY = (center.y - centerY);
+  let vecX = (center1[0] - center2[0]);
+  let vecY = (center1[1] - center2[1]);
   //
   //The transformation
-  elem.style.transform = `rotate3d(${vecX}, ${vecY}, 0, -89deg)`;
-  setTimeout(function() {
+  elem.style.transform = `rotate3d(${vecX}, ${vecY}, 0, -180deg)`;
+
+  if (fast) {
     elem.setAttribute("fill-opacity", "0");
-  }, 125);
+  } else {
+    setTimeout(function() {
+      elem.setAttribute("fill-opacity", "0");
+    }, 125);
+  }
+}
+
+function cellDeets(cell) {
+  let pathArray = cell.getAttribute("d").split(/\s+/);
+
+  let deets = {
+    r1ccw: [Number.parseFloat(pathArray[2]), Number.parseFloat(pathArray[3])],
+    r2ccw: [Number.parseFloat(pathArray[5]), Number.parseFloat(pathArray[6])],
+    r2cw: [Number.parseFloat(pathArray[13]), Number.parseFloat(pathArray[14])],
+    r1cw: [Number.parseFloat(pathArray[16]), Number.parseFloat(pathArray[17])],
+    r1: Number.parseFloat(pathArray[19]),
+    r2: Number.parseFloat(pathArray[8])
+  }
+  return deets;
+}
+
+function findCenter(point1, point2) {
+  let midX = (point1[0] + point2[0]) / 2;
+  let midY = (point1[1] + point2[1]) / 2;
+  return [midX, midY];
 }
 
 function flipUp(elem) {
@@ -100,26 +126,25 @@ function flipUp(elem) {
 
   //
   //Gets details about the element in the viewport
-  let deets = elem.getBoundingClientRect();
+  let deets = cellDeets(elem);
   //
-  //Puts the center points of the elements in a variable
-  let centerX = (deets.x + (deets.width / 2)) - box.x;
-  let centerY = (deets.y + (deets.height / 2)) - box.y;
+  //Puts the center points of the elements in a 
+  let center1 = findCenter(deets.r1ccw, deets.r1cw);
+  let center2 = findCenter(deets.r2ccw, deets.r2cw);
+  let centerCell = findCenter(center1, center2);
   //
   //Ensures the elements transform about their own center
-  elem.style.transformOrigin = `${centerX}px ${centerY}px`;
+  elem.style.transformOrigin = `${centerCell[0]}px ${centerCell[1]}px`;
+  elem.setAttribute("transform-origin", `${centerCell[0]}px ${centerCell[1]}px`);
   //
   //Puts the vector from the center of the element to the 
   //  center of the SVG into variables
-  let vecX = (center.x - centerX);
-  let vecY = (center.y - centerY);
+  let vecX = (center1[0] - center2[0]);
+  let vecY = (center1[1] - center2[1]);
   //
   //The transformation
   elem.style.transform = `rotate3d(${vecX}, ${vecY}, 0, 0deg)`;
-  
-  setTimeout(function() {
-    elem.setAttribute("fill-opacity", "1");
-  }, 125);
+  elem.setAttribute("fill-opacity", "1");
 }
 
 function makeArcs(n, r1, r2, prefix, className) {
@@ -256,7 +281,7 @@ function getSecond() {
 function setTime(id, t) {
   let path = document.getElementById(`${id}${t}`);
   flipUp(path);
-  path.setAttribute("fill-opacity", "1");
+  //console.log(path.getAttribute("d").split(/\s+/));
 }
 
 /*function setTern(t) {
@@ -296,7 +321,7 @@ function clearBand(band) {
 	let clearSpeed = 81 / paths.length;
 
 	let pathClear = setInterval(function() {
-    flipDown(paths[count]);
+    flipDown(paths[count], false);
 		count++;
 		if (count === paths.length) clearInterval(pathClear);
 	}, (clearSpeed * 33));
