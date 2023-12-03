@@ -1,21 +1,3 @@
-
-function getSVGsize() {
-	//----------------------------------------------------//
-	//Returns an object with information about the size 	//
-	//	and location of the SVG element										//
-	//----------------------------------------------------//
-	//return(object): object with size and location info	//
-	//----------------------------------------------------//
-
-	let svgBox = document.getElementById("svgBox");
-	return svgBox.getBoundingClientRect();
-}
-
-function getElementSize(elem) {
-
-	return elem.getBoundingClientRect();
-}
-
 function getMilliseconds() {
 	//----------------------------------------------------//
 	//Returns the number of milliseconds that have passed	//
@@ -134,6 +116,7 @@ function flipUp(elem) {
   //
   //The transformation
   elem.style.transform = `rotate3d(${vecX}, ${vecY}, 0, 0deg)`;
+  
   setTimeout(function() {
     elem.setAttribute("fill-opacity", "1");
   }, 125);
@@ -157,24 +140,20 @@ function makeArcs(n, r1, r2, prefix, className) {
 	//
 	//Change in angle for the starting point of each chunk
 	let angleDelta = 360 / n;
-
 	//
 	//The radii of my arcs converted from percentages to 
 	//	absolute units
 	let radius1 = r1 * box.width;
 	let radius2 = r2 * box.width;
-
 	//
 	//The angle required to leave a 1% gap between the circle chunks
 	angleGap1 = toDeg(2 * (Math.asin((box.width * (gap / 2)) / radius1)));
 	angleGap2 = toDeg(2 * (Math.asin((box.width * (gap / 2)) / radius2)));
-
 	//
 	//Initial starting angle in degrees. -90 is the top of the circle. 
 	//	The extra half of an angle gap is to keep it symmetrical
 	let angleA1 = -90 + (angleGap1 / 2);
 	let angleA2 = -90 + (angleGap2 / 2);
-
 	//
 	//Initial terminal angle in degrees. 
 	//	Starting angle + change in angle - constant gap
@@ -185,7 +164,6 @@ function makeArcs(n, r1, r2, prefix, className) {
 	for (let i = 0; i < n; i++) {
 
 		path = makeSVG("path");
-		
 		//
 		//M -> move to inner counterclockwise corner
 		//L -> line to outer ccw corner
@@ -206,22 +184,17 @@ function makeArcs(n, r1, r2, prefix, className) {
 				${center.x + (Math.cos(toRad(angleA1)) * radius1)} 
 				${center.y + (Math.sin(toRad(angleA1)) * radius1)} 
 		`);
-		//path.setAttribute("fill-opacity", "0");
-		//path.setAttribute("stroke", "black");
+		path.setAttribute("fill-opacity", "0");
 		path.setAttribute("id", `${prefix}${i}`);
 		path.classList.add(className);
     
-    
-
 		svgBox.appendChild(path);
 
     flipDown(path);
-		
 		//
 		//New ccw angle = old cw angle + gap
 		angleA1 = angleB1 + angleGap1;
 		angleA2 = angleB2 + angleGap2;
-
 		//
 		//New cw angle = new ccw angle + angle change - gap
 		angleB1 = angleA1 + angleDelta - angleGap1;
@@ -232,7 +205,7 @@ function makeArcs(n, r1, r2, prefix, className) {
 function makeFace() {
 	//----------------------------------------------------//
 	//I put all this in a function to keep things tidy		//
-	//I use this to make the face of the clock. It's 			//
+	//I use this to make the face of the clock. It's hard	//
 	//	to understand what's going on in a for loop,			//
 	//	but it lets me play with some of the variables 		//
 	//	more easily																				//
@@ -240,18 +213,14 @@ function makeFace() {
 
 	let classes = ["terns", "hours", "minutes", "seconds"];
 	let origin = 0;
-	let radSeed = .28
+	let radSeed = .28;
 	let rad = radSeed;
 	//let rad = Math.sqrt(.33 / Math.PI);
 
 	for (let i = 3, j = 0; i <= 81; i *= 3, j++) {
 
-		//console.log(`origin + gap: ${origin + gap}`);
-		//console.log(`rad: ${rad}`);
-	
 		makeArcs (i, origin + gap, rad, classes[j][0], classes[j]);
 		origin = rad;
-		//rad += .16;
 		if (j < 2) {
 			rad = rad + (radSeed / (3 ** (j + 1)));
 		} else {
@@ -284,7 +253,13 @@ function getSecond() {
 	return Math.floor((sms / 1_463.1916));
 }
 
-function setTern(t) {
+function setTime(id, t) {
+  let path = document.getElementById(`${id}${t}`);
+  flipUp(path);
+  path.setAttribute("fill-opacity", "1");
+}
+
+/*function setTern(t) {
 	let path = document.getElementById(`t${t}`);
   flipUp(path);
 	path.setAttribute("fill-opacity", "1");
@@ -306,7 +281,7 @@ function setSecond(s) {
 	let path = document.getElementById(`s${s}`);
   flipUp(path);
 	path.setAttribute("fill-opacity", "1");
-}
+}*/
 
 function clearBand(band) {
 	//----------------------------------------------------//
@@ -340,14 +315,13 @@ function backfillBand(band, time) {
 	let paths = document.getElementsByClassName(band);
 
 	for (let i = 0; i < time; i++) {
-		paths[i].setAttribute("fill-opacity", "1");
     flipUp(paths[i]);
+    //paths[i].setAttribute("fill-opacity", "1");
 	}
 }
 
 function pulseCell(type, time) {
 	let current = document.getElementById(`${type}${time}`);
-	//let deets = getElementSize(current);
 	let deets = current.getBoundingClientRect();
 	//
 	//transform-origin applies to the bounding box of the element, 
@@ -382,8 +356,7 @@ function pulseCell(type, time) {
 }
 
 let svgBox = document.getElementById("svgBox");
-let box = getElementSize(svgBox);
-//let box = getSVGsize();
+let box = svgBox.getBoundingClientRect();
 //
 //Object to make representing the center point easier
 //	to understand in the code
@@ -405,21 +378,19 @@ let minute = getMinute();
 let second = getSecond();
 
 makeFace();
-
-setTern(tern);
+setTime("t", tern);
 backfillBand("terns", tern);
-setHour(hour);
+setTime("h", hour);
 backfillBand("hours", hour);
-setMinute(minute);
+setTime("m", minute);
 backfillBand("minutes", minute);
-setSecond(second);
+setTime("s", second);
 backfillBand("seconds", second);
 
 let refreshInterval = setInterval(function() {
 
 	if (getSecond() !== second) {
 		
-
 		if (getMinute() !== minute) {
 
 			if (getHour() !== hour) {
@@ -430,23 +401,17 @@ let refreshInterval = setInterval(function() {
 					if (tern === 0) {
 						clearBand("terns");
 					}
-					setTern(tern);
+          setTime("t", tern);
 				}
 				clearBand("minutes");
 				hour = getHour();
-				setHour(hour);
+        setTime("h", hour);
 			}
 			clearBand("seconds");
 			minute = getMinute();
-			setMinute(minute);
+      setTime("m", minute);
 		}
-
-
-		//pulseCell("t", tern);
-		//pulseCell("h", hour);
-		//pulseCell("m", minute);
 		second = getSecond();
-		setSecond(second);
+    setTime("s", second);
 	}
-    
 }, 10);
