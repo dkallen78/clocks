@@ -1,0 +1,23 @@
+#main {
+	display: flex;
+}
+
+#svgBox {
+	margin: auto;
+	height: 90vh;
+	max-height: 100vw;
+	width: 90vh;
+	border-radius: 1vh;
+}
+
+path {
+	color: white;
+	border: 1px solid black;
+	transition: fill-opacity 500ms;
+	transition: transform 250ms;
+  backface-visibility: hidden;
+}
+
+.unset {
+  
+}
