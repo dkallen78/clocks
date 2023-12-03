@@ -184,6 +184,7 @@ function makeArcs(n, r1, r2, prefix, className) {
 	//	Starting angle + change in angle - constant gap
 	let angleB1 = angleA1 + angleDelta - angleGap1;
 	let angleB2 = angleA2 + angleDelta - angleGap2;
+
 	let path;
 
 	for (let i = 0; i < n; i++) {
