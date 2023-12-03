@@ -168,13 +168,13 @@ function makeArcs(n, r1, r2, type) {
 		`);
 		path.classList.add(type);
 
-		path.style.fillOpacity = 0;
 		path.id = `${type[0]}${i}`;
 		path.style.transformOrigin = `${cellCenter.x}px ${cellCenter.y}px`;
 		path.dataset.vecX = cellVector.x;
 		path.dataset.vecY = cellVector.y;
 
 		svgBox.appendChild(path);
+		cellDown(path);
 
 		//
 		//New ccw angle = old cw angle + gap
@@ -217,6 +217,42 @@ function makeFace() {
 	
 }
 
+function backfillBand(band, time) {
+	//----------------------------------------------------//
+	//Backfills the given band from the current time			//
+	//----------------------------------------------------//
+	//band(string): class name of the band to be 					//
+	//	backfilled																				//
+	//time(integer): the current time from which to 			//
+	//	backfill																					//
+	//----------------------------------------------------//
+
+	let paths = document.getElementsByClassName(band);
+
+	for (let i = 0; i < time; i++) {
+    cellUp(paths[i]);
+	}
+}
+
+function clearBand(band) {
+	//----------------------------------------------------//
+	//Clears the fill in a given band, one cell at a time //
+	//----------------------------------------------------//
+	//band(string): the name of the class for the given		//
+	//	band																							//
+	//----------------------------------------------------//s
+
+	let paths = document.getElementsByClassName(band);
+	let count = 1;
+	let clearSpeed = 81 / paths.length;
+
+	let pathClear = setInterval(function() {
+    cellDown(paths[count], false);
+		count++;
+		if (count === paths.length) clearInterval(pathClear);
+	}, (clearSpeed * 33));
+}
+
 function cellUp(elem) {
 	let vecX = Number.parseFloat(elem.dataset.vecX);
 	let vecY = Number.parseFloat(elem.dataset.vecY);
@@ -229,7 +265,7 @@ function cellDown(elem, fast = true) {
 	let vecX = Number.parseFloat(elem.dataset.vecX);
 	let vecY = Number.parseFloat(elem.dataset.vecY);
 
-	elem.style.transform = `rotate3d(${vecX}, ${vecY}, 0, 180deg)`;
+	elem.style.transform = `rotate3d(${vecX}, ${vecY}, 0, 90deg)`;
 
 	if (fast) {
     elem.style.fillOpacity = 0;
@@ -240,7 +276,33 @@ function cellDown(elem, fast = true) {
   }
 }
 
+function gears() {
+	if (time.second !== second) {
+		
+		if (time.minute !== minute) {
 
+			if (time.hour !== hour) {
+
+				if (time.tern !== tern) {
+					clearBand("hours");
+					tern = time.tern;
+					if (tern === 0) {
+						clearBand("terns");
+					}
+          time.setTime("t", tern);
+				}
+				clearBand("minutes");
+				hour = time.hour;
+        time.setTime("h", hour);
+			}
+			clearBand("seconds");
+			minute = time.minute;
+      time.setTime("m", minute);
+		}
+		second = time.second;
+    time.setTime("s", second);
+	}
+}
 
 let svgBox = document.getElementById("svgBox");
 let box = svgBox.getBoundingClientRect();
@@ -259,6 +321,12 @@ let minute = time.minute;
 let second = time.second;
 
 time.setTime("t", tern);
+backfillBand("terns", tern);
 time.setTime("h", hour);
+backfillBand("hours", hour);
 time.setTime("m", minute);
+backfillBand("minutes", minute);
 time.setTime("s", second);
+backfillBand("seconds", second);
+
+let refreshInterval = setInterval(gears, 10);
