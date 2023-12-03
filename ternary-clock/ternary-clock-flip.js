@@ -78,25 +78,65 @@ function toDeg(rad) {
 }
 
 function flipDown(elem) {
+	//----------------------------------------------------//
+	//Uses a CSS transform to rotate the clock cells and  //
+  //  make them invisible                               //
+	//----------------------------------------------------//
+	//elem(DOM element): element to be "flipped"          //
+	//----------------------------------------------------//
+
+  //
+  //Gets details about the element in the viewport
   let deets = elem.getBoundingClientRect();
+  //
+  //Puts the center points of the elements in a variable
   let centerX = (deets.x + (deets.width / 2)) - box.x;
   let centerY = (deets.y + (deets.height / 2)) - box.y;
+  //
+  //Ensures the elements transform about their own center
   elem.style.transformOrigin = `${centerX}px ${centerY}px`;
+  //
+  //Puts the vector from the center of the element to the 
+  //  center of the SVG into variables
   let vecX = (center.x - centerX);
   let vecY = (center.y - centerY);
-  //elem.style.transform = `rotate3d(${centerX - center.x}, ${centerY - center.y}, 0, 180deg)`;
-  elem.style.transform = `rotate3d(${vecX}, ${vecY}, 0, 91deg)`;
+  //
+  //The transformation
+  elem.style.transform = `rotate3d(${vecX}, ${vecY}, 0, -89deg)`;
+  setTimeout(function() {
+    elem.setAttribute("fill-opacity", "0");
+  }, 125);
 }
 
 function flipUp(elem) {
+  //----------------------------------------------------//
+	//Uses a CSS transform to rotate the clock cells and  //
+  //  make them visible                                 //
+	//----------------------------------------------------//
+	//elem(DOM element): element to be "flipped"          //
+	//----------------------------------------------------//
+
+  //
+  //Gets details about the element in the viewport
   let deets = elem.getBoundingClientRect();
+  //
+  //Puts the center points of the elements in a variable
   let centerX = (deets.x + (deets.width / 2)) - box.x;
   let centerY = (deets.y + (deets.height / 2)) - box.y;
+  //
+  //Ensures the elements transform about their own center
   elem.style.transformOrigin = `${centerX}px ${centerY}px`;
+  //
+  //Puts the vector from the center of the element to the 
+  //  center of the SVG into variables
   let vecX = (center.x - centerX);
   let vecY = (center.y - centerY);
-  //elem.style.transform = `rotate3d(${centerX - center.x}, ${centerY - center.y}, 0, 180deg)`;
+  //
+  //The transformation
   elem.style.transform = `rotate3d(${vecX}, ${vecY}, 0, 0deg)`;
+  setTimeout(function() {
+    elem.setAttribute("fill-opacity", "1");
+  }, 125);
 }
 
 function makeArcs(n, r1, r2, prefix, className) {
@@ -281,11 +321,10 @@ function clearBand(band) {
 	let clearSpeed = 81 / paths.length;
 
 	let pathClear = setInterval(function() {
-    //paths[count].setAttribute("fill-opacity", "0");
     flipDown(paths[count]);
 		count++;
 		if (count === paths.length) clearInterval(pathClear);
-	}, (clearSpeed * 25));
+	}, (clearSpeed * 33));
 }
 
 function backfillBand(band, time) {

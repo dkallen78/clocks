@@ -14,7 +14,7 @@ path {
 	color: white;
 	border: 1px solid black;
 	transition: fill-opacity 500ms;
-	transition: transform 250ms;
+	transition: transform 125ms;
   backface-visibility: hidden;
 }
 
