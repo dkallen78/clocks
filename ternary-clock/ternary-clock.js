@@ -379,9 +379,9 @@ let refreshInterval = setInterval(function() {
 		}
 
 
-		pulseCell("t", tern);
-		pulseCell("h", hour);
-		pulseCell("m", minute);
+		//pulseCell("t", tern);
+		//pulseCell("h", hour);
+		//pulseCell("m", minute);
 		second = getSecond();
 		setSecond(second);
 	}
