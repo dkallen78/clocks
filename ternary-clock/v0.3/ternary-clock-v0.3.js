@@ -4,8 +4,18 @@ class Point {
     this.y = y;
   }
 
-	center(p1, p2) {
+	static center(p1, p2) {
 		const midX = (p1.x + p2.x) / 2;
+		const midY = (p1.y + p2.y) / 2;
+		const newCenter = new Point(midX, midY);
+		return newCenter;
+	}
+
+	static vector(p1, p2) {
+		const vecX = (p1.x - p2.x);
+		const vecY = (p1.y - p2.y);
+		const newVector = new Point(vecX, vecY);
+		return newVector;
 	}
 }
 
@@ -79,8 +89,10 @@ function makeArcs(n, r1, r2, type) {
 	let a2 = new Point(0, 0);
 	let b1 = new Point(0, 0);
 	let b2 = new Point(0, 0);
-	let chordCenter1 = new Point(0, 0);
-	let chordCenter2 = new Point(0, 0);
+	let chordCenter1;
+	let chordCenter2;
+	let cellCenter;
+	let cellVector;
 
 	let path;
 
@@ -94,6 +106,13 @@ function makeArcs(n, r1, r2, type) {
 		b1.y = center.y + (Math.sin(toRad(angleB1)) * radius1);
 		b2.x = center.x + (Math.cos(toRad(angleB2)) * radius2);
 		b2.y = center.y + (Math.sin(toRad(angleB2)) * radius2)
+
+		chordCenter1 = Point.center(a1, b1);
+		chordCenter2 = Point.center(a2, b2);
+
+		cellCenter = Point.center(chordCenter1, chordCenter2);
+
+		cellVector = Point.vector(chordCenter1, chordCenter2);
 
 		path = makeSVG("path");
 		//
@@ -110,9 +129,13 @@ function makeArcs(n, r1, r2, type) {
 			A ${radius1} ${radius1} 0 0 0 
 				${a1.x} ${a1.y} 
 		`);
-		path.setAttribute("fill-opacity", "0");
-		path.setAttribute("id", `${type[0]}${i}`);
 		path.classList.add(type);
+
+		path.style.fillOpacity = 1;
+		path.id = `${type[0]}${i}`;
+		path.style.transformOrigin = `${cellCenter.x}px ${cellCenter.y}px`;
+		path.dataset.vecX = cellVector.x;
+		path.dataset.vecY = cellVector.y;
 
 		svgBox.appendChild(path);
 
@@ -145,7 +168,7 @@ function makeFace() {
 
 	for (let i = 3, j = 0; i <= 81; i *= 3, j++) {
 
-		makeArcs (i, origin + gap, rad, classes[j][0], classes[j]);
+		makeArcs (i, origin + gap, rad, classes[j]);
 		origin = rad;
 		if (j < 2) {
 			rad = rad + (radSeed / (3 ** (j + 1)));
@@ -165,3 +188,5 @@ const center = new Point((box.width * .5), (box.height * .5));
 let maxRad = Math.sqrt(2 * ((box.width / 2) ** 2));
 
 let gap = .005;
+
+makeFace();
