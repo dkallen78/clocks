@@ -163,7 +163,7 @@ function makeArcs(n, r1, r2, type) {
 			L ${a2.x} ${a2.y} 
 			A ${radius2} ${radius2} 0 0 1 ${b2.x} ${b2.y}
 			L ${b1.x} ${b1.y} 
-			A ${radius1} ${radius1} 0 0 0 
+			A ${radius1} ${radius1} 0 0 ${type === "tern" ? 1 : 0} 
 				${a1.x} ${a1.y} 
 		`);
 		path.classList.add(type);
@@ -272,7 +272,7 @@ function cellDown(elem, fast = true) {
   } else {
     setTimeout(function() {
       elem.style.fillOpacity = 0;
-    }, 125);
+    }, 500);
   }
 }
 
