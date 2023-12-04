@@ -310,7 +310,6 @@ function cellUp(elem) {
 	let vecY = Number.parseFloat(elem.dataset.vecY);
 
 	elem.style.transform = `rotate3d(${vecX}, ${vecY}, 0, 0deg)`;
-  //elem.style.fillOpacity = 1;
 }
 
 function cellDown(elem, fast = true) {
@@ -327,14 +326,6 @@ function cellDown(elem, fast = true) {
 	let vecY = Number.parseFloat(elem.dataset.vecY);
 
 	elem.style.transform = `rotate3d(${vecX}, ${vecY}, 0, 89.99deg)`;
-
-	/*if (fast) {
-    //elem.style.fillOpacity = 0;
-  } else {
-    setTimeout(function() {
-      //elem.style.fillOpacity = 0;
-    }, 500);
-  }*/
 }
 
 function gears() {
