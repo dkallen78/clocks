@@ -1,10 +1,27 @@
 class Point {
+	//----------------------------------------------------//
+	//A data structure to make managing and representing	//
+	//	Cartesian points easier														//
+	//----------------------------------------------------//
+	//x(float): x coordinate of the point									//
+	//y(float): y coordinate of the point									//
+	//----------------------------------------------------//
+
   constructor(x, y) {
     this.x = x;
     this.y = y;
   }
 
 	static center(p1, p2) {
+		//----------------------------------------------------//
+		//Finds the center point between p1 and p2						//
+		//----------------------------------------------------//
+		//p1, p2(Point): points to find the center of					//
+		//----------------------------------------------------//
+		//return(Point): the point at the midpoint between the//
+		//	original two points																//
+		//----------------------------------------------------//
+
 		const midX = (p1.x + p2.x) / 2;
 		const midY = (p1.y + p2.y) / 2;
 		const newCenter = new Point(midX, midY);
@@ -12,6 +29,14 @@ class Point {
 	}
 
 	static vector(p1, p2) {
+		//----------------------------------------------------//
+		//Finds the vector from p1 to p2											//
+		//----------------------------------------------------//
+		//p1, p2(Point): points on the vector to be found			//
+		//----------------------------------------------------//
+		//return(Point): the vector from p1 to p2							//
+		//----------------------------------------------------//
+
 		const vecX = (p1.x - p2.x);
 		const vecY = (p1.y - p2.y);
 		const newVector = new Point(vecX, vecY);
@@ -21,6 +46,13 @@ class Point {
 
 const time = {
 	get ms() {
+		//----------------------------------------------------//
+		//Returns the number of milliseconds that have passed	//
+		//	in the current day																//
+		//----------------------------------------------------//
+		//return(integer): elapsed ms in current day					//
+		//----------------------------------------------------//
+
 		let totalms = 0;
 
     let newTime = new Date();
@@ -98,9 +130,20 @@ function toDeg(rad) {
 }
 
 function makeArcs(n, r1, r2, type) {
+	//----------------------------------------------------//
+	//Makes the paths that draw the clock cells in the 		//
+	//	SVG element																				//
+	//----------------------------------------------------//
+	//n(integer): number of cells to draw									//
+	//r1(float): lower bound of the cells given as a 			//
+	//	percentage of the SVG element size								//
+	//r2(float): upper bound of the cells	given as a 			//
+	//	percentage of the SVG element size								//
+	//type(string): the type of cell to be drawn					//
+	//----------------------------------------------------//
 
 	//
-	//Change in angle for the starting point of each chunk
+	//Change in angle for the starting point of each cell
 	let angleDelta = 360 / n;
 	//
 	//The radii of my arcs converted from percentages to 
@@ -108,7 +151,7 @@ function makeArcs(n, r1, r2, type) {
 	let radius1 = r1 * box.width;
 	let radius2 = r2 * box.width;
 	//
-	//The angle required to leave a 1% gap between the circle chunks
+	//The angle required to leave a 1% gap between the cells
 	let angleGap1 = toDeg(2 * (Math.asin((box.width * (gap / 2)) / radius1)));
 	let angleGap2 = toDeg(2 * (Math.asin((box.width * (gap / 2)) / radius2)));
 	//
@@ -122,6 +165,8 @@ function makeArcs(n, r1, r2, type) {
 	let angleB1 = angleA1 + angleDelta - angleGap1;
 	let angleB2 = angleA2 + angleDelta - angleGap2;
 
+	//
+	//Points that will be needed when drawing the cells
 	let a1 = new Point(0, 0);
 	let a2 = new Point(0, 0);
 	let b1 = new Point(0, 0);
@@ -163,7 +208,7 @@ function makeArcs(n, r1, r2, type) {
 			L ${a2.x} ${a2.y} 
 			A ${radius2} ${radius2} 0 0 1 ${b2.x} ${b2.y}
 			L ${b1.x} ${b1.y} 
-			A ${radius1} ${radius1} 0 0 ${type === "tern" ? 1 : 0} 
+			A ${radius1} ${radius1} 0 0 ${type === "terns" ? 1 : 0} 
 				${a1.x} ${a1.y} 
 		`);
 		path.classList.add(type);
@@ -250,33 +295,54 @@ function clearBand(band) {
     cellDown(paths[count], false);
 		count++;
 		if (count === paths.length) clearInterval(pathClear);
-	}, (clearSpeed * 33));
+	}, (clearSpeed * 50));
 }
 
 function cellUp(elem) {
+	//----------------------------------------------------//
+	//Uses a CSS transform to rotate the clock cells and  //
+  //  make them visible                               	//
+	//----------------------------------------------------//
+	//elem(DOM element): element to be "flipped"          //
+	//----------------------------------------------------//
+
 	let vecX = Number.parseFloat(elem.dataset.vecX);
 	let vecY = Number.parseFloat(elem.dataset.vecY);
 
 	elem.style.transform = `rotate3d(${vecX}, ${vecY}, 0, 0deg)`;
-  elem.style.fillOpacity = 1;
+  //elem.style.fillOpacity = 1;
 }
 
 function cellDown(elem, fast = true) {
+	//----------------------------------------------------//
+	//Uses a CSS transform to rotate the clock cells and  //
+  //  make them invisible                               //
+	//----------------------------------------------------//
+	//elem(DOM element): element to be "flipped"          //
+	//fast(boolean): whether or not to apply a delay to 	//
+	//	the transition																		//
+	//----------------------------------------------------//
+
 	let vecX = Number.parseFloat(elem.dataset.vecX);
 	let vecY = Number.parseFloat(elem.dataset.vecY);
 
 	elem.style.transform = `rotate3d(${vecX}, ${vecY}, 0, 90deg)`;
 
-	if (fast) {
-    elem.style.fillOpacity = 0;
+	/*if (fast) {
+    //elem.style.fillOpacity = 0;
   } else {
     setTimeout(function() {
-      elem.style.fillOpacity = 0;
+      //elem.style.fillOpacity = 0;
     }, 500);
-  }
+  }*/
 }
 
 function gears() {
+	//----------------------------------------------------//
+	//The repeating function that updates the clock face 	//
+	//	when the time changes															//
+	//----------------------------------------------------//
+
 	if (time.second !== second) {
 		
 		if (time.minute !== minute) {

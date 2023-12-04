@@ -1,12 +1,10 @@
-# [Ternary Clock v0.1](https://dkallen78.github.io/clocks/ternary-clock/v0.1/ternary-clock-v0.1.html)
+# [Ternary Clock v0.3](https://dkallen78.github.io/clocks/ternary-clock/v0.3/ternary-clock-v0.3.html)
 
-This clock was inspired by a conversation I had with someone on Reddit.
+This is basically the same on the outside but I changed a bunch on the inside. The first big thing I changed was giving points their own class with a static method for finding the midpoint between two points and the vector between two points. This makes things easier to read when I'm navigating the code.
 
-The basic idea is a a clock built around base 3 so the fundamental division of the day is into three parts. In my code I call these parts "terns" but if someone has something better, I'll use that instead. Each tern is divided into 9 hours; each hour into 27 minutes, and each minute into 81 seconds. This makes the hour<sub>3</sub> 89% the length of the hour<sub>60</sub>, the minute<sub>3</sub> 97% longer than the minute<sub>60</sub>, and the  second<sub>3</sub> 46% longer than the  second<sub>60</sub>.
+The second thing is instead of finding the vector and cell center on the fly I tie it directly to the element when I create it. The center I do by just giving it a `transform-origin` property and the vector I do with custom HTML attributes. 
 
-The hardest part was wrapping my head around drawing part of a circle with the `<path>` element of SVG and ironing out those kinks. I've made enough clocks that the trigonometry of distributing points on a circle came back to me pretty quickly. The tricky part was finding a way to ensure that all of the gaps between the cells would be the same. The solution to that was in calculating the angle of the gap between each concentric cell based on the  distance I wanted between them. Basically I needed to double the arcsine of half the gap divided by the radius to the arc. 
-
-`2 * Math.asin((gap / 2) / radius)`
+The third thing I did was put all of my time based functions inside an object just to keep them organized better and tie them together.
 
 # [Ternary Clock v0.2](https://dkallen78.github.io/clocks/ternary-clock/v0.2/ternary-clock-v0.2.html)
 
@@ -23,3 +21,14 @@ That's a lie. I think part of the problem is my method of finding the center is 
 I fixed the wonky center/vector issue. Since I was using the bounding box to find the center, and that center to find the vector to rotate, it was throwing some of the animations off when I was doing 90 and 180 degree rotations. Now I'm directly interrogating the `d` attribute of the `<path>` element to get the coordinates for the cell. From there I can just find the midpoints between opposite corners and find a vector from the outer midpoint to the inner midpoint. And for my new and improved transform-origin I'm using the center of the two midpoints which still isn't perfect, but it's much better.
 
 I'll clean up my code and comments tomorrow.
+
+# [Ternary Clock v0.1](https://dkallen78.github.io/clocks/ternary-clock/v0.1/ternary-clock-v0.1.html)
+
+This clock was inspired by a conversation I had with someone on Reddit.
+
+The basic idea is a a clock built around base 3 so the fundamental division of the day is into three parts. In my code I call these parts "terns" but if someone has something better, I'll use that instead. Each tern is divided into 9 hours; each hour into 27 minutes, and each minute into 81 seconds. This makes the hour<sub>3</sub> 89% the length of the hour<sub>60</sub>, the minute<sub>3</sub> 97% longer than the minute<sub>60</sub>, and the  second<sub>3</sub> 46% longer than the  second<sub>60</sub>.
+
+The hardest part was wrapping my head around drawing part of a circle with the `<path>` element of SVG and ironing out those kinks. I've made enough clocks that the trigonometry of distributing points on a circle came back to me pretty quickly. The tricky part was finding a way to ensure that all of the gaps between the cells would be the same. The solution to that was in calculating the angle of the gap between each concentric cell based on the  distance I wanted between them. Basically I needed to double the arcsine of half the gap divided by the radius to the arc. 
+
+`2 * Math.asin((gap / 2) / radius)`
+
