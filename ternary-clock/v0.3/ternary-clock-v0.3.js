@@ -326,7 +326,7 @@ function cellDown(elem, fast = true) {
 	let vecX = Number.parseFloat(elem.dataset.vecX);
 	let vecY = Number.parseFloat(elem.dataset.vecY);
 
-	elem.style.transform = `rotate3d(${vecX}, ${vecY}, 0, 90deg)`;
+	elem.style.transform = `rotate3d(${vecX}, ${vecY}, 0, 89.99deg)`;
 
 	/*if (fast) {
     //elem.style.fillOpacity = 0;
