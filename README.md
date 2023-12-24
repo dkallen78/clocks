@@ -11,3 +11,7 @@ I like making clocks with web technology
 ## Digital Clocks
 
 [Flip Clock](https://dkallen78.github.io/clocks/flip-clock)
+
+[Spin Clock](https://dkallen78.github.io/clocks/spin-clock)
+
+[Twist Clock](https://dkallen78.github.io/clocks/twist-clock)
