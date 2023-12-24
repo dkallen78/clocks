@@ -4,7 +4,7 @@ I like making clocks with web technology
 
 ## Analog Clocks
 
-[Martian Clock](https://github.com/dkallen78/clocks/tree/master/martian-clock)
+[Martian Clock](https://github.com/dkallen78/clocks/tree/master/mars-clock)
 
 [Senary Clocks](https://github.com/dkallen78/clocks/tree/master/senary-clock)
 

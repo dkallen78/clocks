@@ -1,4 +1,4 @@
-# [Martian Clock](https://dkallen78.github.io/martian-clock/martianClockSVG.html)
+# [Martian Clock](https://dkallen78.github.io/mars-clock/martianClockSVG.html)
 
 ## Wait, What?
 
