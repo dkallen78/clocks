@@ -1,3 +1,3 @@
-#[Neon Pixel Clock](https://dkallen.github.io/clocks/neon-pixel-1/neonPixel1.html)
+# [Neon Pixel Clock](https://dkallen.github.io/clocks/neon-pixel-1/neonPixel1.html)
 
 My original plan was to make a seven-segment display clock but I went for the easy solution and made a 15-pixel display clock instead. There's nothing tricky here as far as programming goes. The numbers are defined in a 3x5 array with 1s and 0s representing active and inactive "pixels." Everything is arranged in the DOM with a grid box. 

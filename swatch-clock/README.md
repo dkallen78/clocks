@@ -1,4 +1,4 @@
-#[Swatch Beat Clock](https://dkallen78.github.io/clocks/swatch-clock/swatchTime.html)
+# [Swatch Beat Clock](https://dkallen78.github.io/clocks/swatch-clock/swatchTime.html)
 
 I discovered Swatch time by accident while working on another clock and decided I had to make it. Swatch divides the day into 1,000 equal parts called Beats which come out to be 86.4 seconds each. In addition to displaying the current Beat, I also display the hundredth part of the current beat. The math to pull this off is pretty simple: I get the number of milliseconds that have ellapsed so far in the day and divide by 86,400. The quotient is the current Beat. 
 

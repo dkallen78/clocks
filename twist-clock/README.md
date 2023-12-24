@@ -1,3 +1,3 @@
-#[Twist Clock](https://dkallen78.github.io/clocks/twist-clock/twistClock.html)
+# [Twist Clock](https://dkallen78.github.io/clocks/twist-clock/twistClock.html)
 
 The only new thing I'm doing here that I didn't do in either the [Flip Clock](https://dkallen78.github.io/clocks/flip-clock) or the [Spin Clock](https://dkallen78.github.io/clocks/spin-clock) is have upcoming and previous digits displayed along with the current count of seconds. More than anything, this clock was an exercise in turning an idea into a reality.

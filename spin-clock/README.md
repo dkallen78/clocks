@@ -1,3 +1,3 @@
-#[Spin Clock](https://dkallen78.github.io/clocks/spin-clock/spinClock.html)
+# [Spin Clock](https://dkallen78.github.io/clocks/spin-clock/spinClock.html)
 
 After my [Flip Clock](https://dkallen78.github.io/clocks/flip-clock) I wanted to explore 3D CSS transformations a bit more. Whereas the Flip Clock rotates elements along the X axis with the rotation origin in the center of the element, this clock moves that origin in 3D space 5rem into the virtual depth of the screen. Just before the number is spun out of site, the new number is made and placed in the DOM behind the old number.
