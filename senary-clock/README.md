@@ -1,10 +1,12 @@
+# Senary Clocks
+
 ## [Canvas Senary Clock!](https://dkallen78.github.io/clocks/senary-clock/senary-clock-canvas/senaryClock.html)
 
 ## [SVG Senary Clock!](https://dkallen78.github.io/clocks/senary-clock/senary-clock-svg/senaryClockSVG.html)
 
 ## [SVG Senary Clock but with a sundial instead of hands](https://dkallen78.github.io/clocks/senary-clock/senary-clock-svg-sundial/sundialClock.html)
 
-This is the clock no one asked for!
+These are the clocks no one asked for!
 
 ### What is Senary?
 

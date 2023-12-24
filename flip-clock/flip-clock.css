@@ -1,6 +1,14 @@
+body {
+  display: flex;
+  justify-content: center;
+}
+
 #frame {
   display: flex;
   justify-content: center;
+  width: 18.7rem;
+  border: .25rem solid black;
+  border-radius: .25rem;
 }
 
 .top {
@@ -14,11 +22,12 @@
 .dial {
   display: flex;
   justify-content: center;
+  align-items: center;
   font-family: monospace;
-  width: 5.5rem;
-  height: 2rem;
+  width: 5.6rem;
+  height: 5.6rem;
+  padding: .25rem;
   text-align: center;
-  font-size: 2rem;
   font-weight: bold;
   perspective: 20rem;
 }
@@ -27,7 +36,7 @@
   position: absolute;
   background-color: black;
   color: white;
+  padding: .5rem;
   font-size: 4rem;
-  /*backface-visibility: hidden;*/
   transition: all 400ms linear;
 }

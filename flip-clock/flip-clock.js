@@ -62,7 +62,7 @@ function changeTime(old, time, target, unit) {
   }
 
   //
-  //Creates a new element to display the updated time, prerotated
+  //Creates a new element to display the updated time, pre-rotated
   //  so it can be flipped into place
   let spanBottom = makeElement("span", `${time}B${unit}`, "bottom");
   spanBottom.style.transform = "rotateX(180deg)";

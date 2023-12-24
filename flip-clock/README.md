@@ -1,0 +1,3 @@
+#[Flip Clock](https://dkallen78.github.io/clocks/flip-clock/flip-clock.html)
+
+After having made some analog clocks, I wanted to see if I could make a classic flip clock. The concept is pretty simple but it took some work to get all the HTML and CSS to play nicely together. The trick is to use two elements to display the proper digit, one each for the top and bottom. Then I use clip-path to trim off the bottom and top of the top and bottom respectively. When it's time to change a time, I rotate the top part around the x axis with a 400 ms transition time, then halfway through the animatioin (when it's edge on/practically invisible) I sneak in the new digits so it looks like the back of the old digit is the bottom of the new one. 
