@@ -1,0 +1,3 @@
+#[Fraction Clock](https://dkallen78.github.io/clocks/fraction-clock/fractionClock.html)
+
+Time is essentially just a representation of the fraction of the day that has passed. I decided to make a clock that represented that as a series of nested fractions using the MathML functionality built into the browser. The code in this one is stupid simple but getting my head around how to use the `<math>` tags took me a little bit. 
