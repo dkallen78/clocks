@@ -4,14 +4,14 @@ I like making clocks with web technology
 
 ## Analog Clocks
 
-[Martian Clock](https://dkallen78.github.io/clocks/mars-clock)
+[Martian Clock](https://github.com/dkallen78/clocks/tree/master/martian-clock)
 
-[Senary Clocks](https://dkallen78.github.io/clocks/senary-clock)
+[Senary Clocks](https://github.com/dkallen78/clocks/tree/master/senary-clock)
 
 ## Digital Clocks
 
-[Flip Clock](https://dkallen78.github.io/clocks/flip-clock)
+[Flip Clock](https://github.com/dkallen78/clocks/tree/master/flip-clock)
 
-[Spin Clock](https://dkallen78.github.io/clocks/spin-clock)
+[Spin Clock](https://github.com/dkallen78/clocks/tree/master/spin-clock)
 
-[Twist Clock](https://dkallen78.github.io/clocks/twist-clock)
+[Twist Clock](https://github.com/dkallen78/clocks/tree/master/twist-clock)
