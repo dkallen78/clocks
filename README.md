@@ -22,6 +22,8 @@ I like making clocks with web technology
 
 [Swatch Beat Clock](https://github.com/dkallen78/clocks/tree/master/swatch-clock)
 
+[Balanced Ternary Clock](https://github.com/dkallen78/clocks/tree/master/balanced-ternary-clock)
+
 ## Other Clocks
 
 [Ternary Clock](https://github.com/dkallen78/clocks/tree/master/ternary-clock)

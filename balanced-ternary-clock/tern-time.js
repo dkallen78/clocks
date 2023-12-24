@@ -1,4 +1,15 @@
 function findHighestPower(number, base) {
+  /*
+  //Finds the highest power of "base" less than "number"//
+  //----------------------------------------------------//
+  //number(integer): the number which bounds the maximum//
+  //  value of our "base"                               //
+  //base(integer): the base which we're trying to find  //
+  //  the highest power of                              //
+  //----------------------------------------------------//
+  //return(integer): the exponent which defines the     //
+  //  highest power we're looking for                   //
+  */
 
   for (var power = 0; number >= base ** power; power++) {
   }
@@ -7,6 +18,15 @@ function findHighestPower(number, base) {
 }
 
 function toTernary(number) {
+  /*
+  //Converts a decimal number to a ternary number       //
+  //----------------------------------------------------//
+  //number(integer): the decimal number to be converted //
+  //  to ternary                                        //
+  //----------------------------------------------------//
+  //return(string): ternary representation of the given //
+  //  binary number                                     //
+  */
 
   number = parseInt(number, 10);
 
@@ -25,6 +45,15 @@ function toTernary(number) {
 }
 
 function toBalancedTernary(number) {
+  /*
+  //Converts an unbalanced ternary number into a        //
+  //  balanced ternary number                           //
+  //----------------------------------------------------//
+  //number(string): the ternary number to be converted  //
+  //----------------------------------------------------//
+  //return(string): the converted number                //
+  */
+
   let unbal = [0];
   for (let i = 0; i < number.length; i++) {
     unbal.push(parseInt(number[i], 10));
