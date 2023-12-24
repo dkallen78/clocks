@@ -15,3 +15,5 @@ I like making clocks with web technology
 [Spin Clock](https://github.com/dkallen78/clocks/tree/master/spin-clock)
 
 [Twist Clock](https://github.com/dkallen78/clocks/tree/master/twist-clock)
+
+[Neon Pixel Clock](https://github.com/dkallen78/clocks/tree/master/neon-pixel-1)

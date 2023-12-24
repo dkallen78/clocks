@@ -102,9 +102,6 @@ const digit = {
 
 function makeDigit(target, digit) {
 
-  //target.innerHTML = "";
-  //console.log(target.id);
-
   let pixels = document.querySelectorAll("#" + target.id + " > div");
   if (pixels) {
     for (let i = 0; i < pixels.length; i++) {
@@ -128,27 +125,6 @@ function makeDigit(target, digit) {
       }
     }
   }, 760);
-
-
-  /*for (let i = 0; i < digit.length; i++) {
-    for (let j = 0; j < digit[0].length; j++) {
-
-      if (digit[i][j]) {
-        let div = document.createElement("div");
-        div.style.gridRow = `${i + 1} / ${i + 2}`;
-        div.style.gridColumn = `${j + 1} / ${j + 2}`;
-        target.appendChild(div);
-      }
-
-    }
-  }
-
-  let pixels = document.querySelectorAll("#" + target.id + " > div");
-  if (pixels) {
-    for (let i = 0; i < pixels.length; i++) {
-      pixels[i].style.width = "0rem";
-    }
-  }*/
 
 }
 
@@ -194,5 +170,4 @@ let refreshInterval = setInterval(function() {
     shownSeconds = secondNow;
   }
 
-  //clearInterval(refreshInterval);
 }, 10);
