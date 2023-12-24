@@ -21,3 +21,7 @@ I like making clocks with web technology
 [Fraction Clock](https://github.com/dkallen78/clocks/tree/master/fraction-clock)
 
 [Swatch Beat Clock](https://github.com/dkallen78/clocks/tree/master/swatch-clock)
+
+## Other Clocks
+
+[Ternary Clock](https://github.com/dkallen78/clocks/tree/master/ternary-clock)
