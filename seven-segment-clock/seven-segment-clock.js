@@ -61,17 +61,111 @@ function makeSVG(type, id, ...classes) {
   return svg;
 }
 
+function makeSegments(svg) {
+
+
+  const svgBox = document.getElementById(svg.id);
+  const box = svgBox.getBoundingClientRect();
+  const xBias = .05;
+  const yBias = .03125;
+  const xMod = xBias * box.width;
+  const yMod = yBias * box.height;
+
+  let path1 = makeSVG("path", "seg1");
+  path1.setAttribute("d", `
+    M ${5 * xMod} ${4 * yMod} 
+    L ${7 * xMod} ${2 * yMod}
+    L ${13 * xMod} ${2 * yMod}
+    L ${15 * xMod} ${4 * yMod}
+    L ${13 * xMod} ${6 * yMod}
+    L ${7 * xMod} ${6 * yMod}
+    Z
+  `);
+  svg.appendChild(path1);
+
+  let path2 = makeSVG("path", "seg2");
+  path2.setAttribute("d", `
+    M ${16 * xMod} ${5 * yMod} 
+    L ${18 * xMod} ${7 * yMod}
+    L ${18 * xMod} ${13 * yMod}
+    L ${16 * xMod} ${15 * yMod}
+    L ${14 * xMod} ${13 * yMod}
+    L ${14 * xMod} ${7 * yMod}
+    Z
+  `);
+  svg.appendChild(path2);
+
+  let path3 = makeSVG("path", "seg3");
+  path3.setAttribute("d", `
+    M ${16 * xMod} ${17 * yMod} 
+    L ${18 * xMod} ${19 * yMod}
+    L ${18 * xMod} ${25 * yMod}
+    L ${16 * xMod} ${27 * yMod}
+    L ${14 * xMod} ${25 * yMod}
+    L ${14 * xMod} ${19 * yMod}
+    Z
+  `);
+  svg.appendChild(path3);
+
+  let path4 = makeSVG("path", "seg4");
+  path4.setAttribute("d", `
+    M ${5 * xMod} ${28 * yMod} 
+    L ${7 * xMod} ${26 * yMod}
+    L ${13 * xMod} ${26 * yMod}
+    L ${15 * xMod} ${28 * yMod}
+    L ${13 * xMod} ${30 * yMod}
+    L ${7 * xMod} ${30 * yMod}
+    Z
+  `);
+  svg.appendChild(path4);
+
+  let path5 = makeSVG("path", "seg5");
+  path5.setAttribute("d", `
+    M ${4 * xMod} ${17 * yMod} 
+    L ${6 * xMod} ${19 * yMod}
+    L ${6 * xMod} ${25 * yMod}
+    L ${4 * xMod} ${27 * yMod}
+    L ${2 * xMod} ${25 * yMod}
+    L ${2 * xMod} ${19 * yMod}
+    Z
+  `);
+  svg.appendChild(path5);
+
+  let path6 = makeSVG("path", "seg6");
+  path6.setAttribute("d", `
+    M ${4 * xMod} ${5 * yMod} 
+    L ${6 * xMod} ${7 * yMod}
+    L ${6 * xMod} ${13 * yMod}
+    L ${4 * xMod} ${15 * yMod}
+    L ${2 * xMod} ${13 * yMod}
+    L ${2 * xMod} ${7 * yMod}
+    Z
+  `);
+  svg.appendChild(path6);
+
+  let path7 = makeSVG("path", "seg7");
+  path7.setAttribute("d", `
+    M ${5 * xMod} ${16 * yMod} 
+    L ${7 * xMod} ${14 * yMod}
+    L ${13 * xMod} ${14 * yMod}
+    L ${15 * xMod} ${16 * yMod}
+    L ${13 * xMod} ${18 * yMod}
+    L ${7 * xMod} ${18 * yMod}
+    Z
+  `);
+  svg.appendChild(path7);
+}
+
 function buildFace() {
 
   const clockFace = document.getElementById("clock-face");
 
   for (let i = 0; i < 6; i++) {
-    let display = makeSVG("svg", i.toString(10));
+    let display = makeSVG("svg", i.toString(10), "digits");
     clockFace.appendChild(display);
+    makeSegments(display);
+
   }
 }
 
 document.body.onload = buildFace;
-
-const xBias = .02;
-const yBias = .03125;
