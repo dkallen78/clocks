@@ -71,7 +71,7 @@ function makeSegments(svg) {
   const xMod = xBias * box.width;
   const yMod = yBias * box.height;
 
-  let path1 = makeSVG("path", "seg1");
+  let path1 = makeSVG("path", "a");
   path1.setAttribute("d", `
     M ${5 * xMod} ${4 * yMod} 
     L ${7 * xMod} ${2 * yMod}
@@ -83,7 +83,7 @@ function makeSegments(svg) {
   `);
   svg.appendChild(path1);
 
-  let path2 = makeSVG("path", "seg2");
+  let path2 = makeSVG("path", "b");
   path2.setAttribute("d", `
     M ${16 * xMod} ${5 * yMod} 
     L ${18 * xMod} ${7 * yMod}
@@ -95,7 +95,7 @@ function makeSegments(svg) {
   `);
   svg.appendChild(path2);
 
-  let path3 = makeSVG("path", "seg3");
+  let path3 = makeSVG("path", "c");
   path3.setAttribute("d", `
     M ${16 * xMod} ${17 * yMod} 
     L ${18 * xMod} ${19 * yMod}
@@ -107,7 +107,7 @@ function makeSegments(svg) {
   `);
   svg.appendChild(path3);
 
-  let path4 = makeSVG("path", "seg4");
+  let path4 = makeSVG("path", "d");
   path4.setAttribute("d", `
     M ${5 * xMod} ${28 * yMod} 
     L ${7 * xMod} ${26 * yMod}
@@ -119,7 +119,7 @@ function makeSegments(svg) {
   `);
   svg.appendChild(path4);
 
-  let path5 = makeSVG("path", "seg5");
+  let path5 = makeSVG("path", "e");
   path5.setAttribute("d", `
     M ${4 * xMod} ${17 * yMod} 
     L ${6 * xMod} ${19 * yMod}
@@ -131,7 +131,7 @@ function makeSegments(svg) {
   `);
   svg.appendChild(path5);
 
-  let path6 = makeSVG("path", "seg6");
+  let path6 = makeSVG("path", "f");
   path6.setAttribute("d", `
     M ${4 * xMod} ${5 * yMod} 
     L ${6 * xMod} ${7 * yMod}
@@ -143,7 +143,7 @@ function makeSegments(svg) {
   `);
   svg.appendChild(path6);
 
-  let path7 = makeSVG("path", "seg7");
+  let path7 = makeSVG("path", "g");
   path7.setAttribute("d", `
     M ${5 * xMod} ${16 * yMod} 
     L ${7 * xMod} ${14 * yMod}
@@ -156,11 +156,35 @@ function makeSegments(svg) {
   svg.appendChild(path7);
 }
 
+function makeSVGcircle(x, y, r) {
+  let circle = makeSVG("circle");
+  circle.setAttribute("cx", x);
+  circle.setAttribute("cy", y);
+  circle.setAttribute("r", r);
+  return circle;
+}
+
 function buildFace() {
 
   const clockFace = document.getElementById("clock-face");
 
   for (let i = 0; i < 6; i++) {
+    if ((i > 0) && ((i % 2) === 0)) {
+      let colon = makeSVG("svg", `sep${i}`, "colon");
+      clockFace.appendChild(colon);
+      const colBox = document.getElementById(`sep${i}`);
+      const box = colBox.getBoundingClientRect();
+      const x1 = .5 * box.width;
+      const y1 = .3125 * box.height;
+      const y2 = .6875 * box.height;
+      const r = .5 * box.width;
+
+      let circle1 = makeSVGcircle(x1, y1, r);
+      colon.appendChild(circle1);
+
+      let circle2 = makeSVGcircle(x1, y2, r);
+      colon.appendChild(circle2);
+    }
     let display = makeSVG("svg", i.toString(10), "digits");
     clockFace.appendChild(display);
     makeSegments(display);

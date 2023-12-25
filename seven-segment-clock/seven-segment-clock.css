@@ -1,4 +1,10 @@
 .digits {
   width: 15svw;
   height: 24svw;
+  opacity: 0;
+}
+
+.colon {
+  width: 3svw;
+  height: 24svw;
 }

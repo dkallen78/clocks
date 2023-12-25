@@ -1,0 +1,3 @@
+# Seven-Segment Display Clock
+
+The first challenge I overcame with this clock was putting together the segments. My options were either using `<div>`s with `clip-path` or `<path>` SVG elements. I went with SVG because I like its versatility compared to HTML when it comes to looking pretty. Since I like to make my clocks responsive to the size of the window, I can't use "normal" units when laying out my paths. Instead, I define all my points as percentages of the width and height. This preloads me with a bit of math but once I've crunched my numbers, it makes inputting everything into the path pretty easy.
