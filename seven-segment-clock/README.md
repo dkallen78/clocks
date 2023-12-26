@@ -1,3 +1,5 @@
-# Seven-Segment Display Clock
+# [Seven-Segment Display Clock](https://dkallen78.github.io/clocks/seven-segment-clock/seven-segment-clock.html)
 
 The first challenge I overcame with this clock was putting together the segments. My options were either using `<div>`s with `clip-path` or `<path>` SVG elements. I went with SVG because I like its versatility compared to HTML when it comes to looking pretty. Since I like to make my clocks responsive to the size of the window, I can't use "normal" units when laying out my paths. Instead, I define all my points as percentages of the width and height. This preloads me with a bit of math but once I've crunched my numbers, it makes inputting everything into the path pretty easy.
+
+Turning the segments on and off is done by running `childNodes.forEach` on the `<svg>` with the `<path>` elements to be modified: `fill-opacity = "0"` for off, `fill-opacity = "1"` for on. I also have an array of 10 elements (corresponding to the numbers 0 - 9) which have letter codes indicating which segments to display for which number.

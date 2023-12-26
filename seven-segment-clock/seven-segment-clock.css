@@ -1,10 +1,22 @@
+body {
+  background-color: black;
+}
+
 .digits {
   width: 15svw;
   height: 24svw;
-  opacity: 0;
+  fill-opacity: 0;
 }
 
 .colon {
   width: 3svw;
   height: 24svw;
+}
+
+.digits, .colon {
+  fill: lime;
+}
+
+.digits path, .colon path {
+  filter: drop-shadow(0 0 1svh lime);
 }
