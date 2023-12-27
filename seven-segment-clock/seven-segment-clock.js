@@ -151,7 +151,7 @@ function buildFace() {
       const x1 = .5 * box.width;
       const y1 = .3125 * box.height;
       const y2 = .6875 * box.height;
-      const r = .5 * box.width;
+      const r = .25 * box.width;
 
       let circle1 = makeSVGcircle(x1, y1, r);
       colon.appendChild(circle1);
