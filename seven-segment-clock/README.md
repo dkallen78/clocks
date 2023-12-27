@@ -1,5 +1,9 @@
 # [Seven-Segment Display Clock](https://dkallen78.github.io/clocks/seven-segment-clock/seven-segment-clock.html)
 
-The first challenge I overcame with this clock was putting together the segments. My options were either using `<div>`s with `clip-path` or `<path>` SVG elements. I went with SVG because I like its versatility compared to HTML when it comes to looking pretty. Since I like to make my clocks responsive to the size of the window, I can't use "normal" units when laying out my paths. Instead, I define all my points as percentages of the width and height. This preloads me with a bit of math but once I've crunched my numbers, it makes inputting everything into the path pretty easy.
+It's a clock with a seven-segment display!
 
-Turning the segments on and off is done by running `childNodes.forEach` on the `<svg>` with the `<path>` elements to be modified: `fill-opacity = "0"` for off, `fill-opacity = "1"` for on. I also have an array of 10 elements (corresponding to the numbers 0 - 9) which have letter codes indicating which segments to display for which number.
+Each digit and the colon separators are individual `<svg>` elements. Each of those elements is made up of either `<path>` elements in the case of the SSD, or `<circle>` elements in the case of the colons. 
+
+To ensure the `<svg>` elements take up the full width of the screen, their size is defined in relative units in the CSS file. That means that the `<path>` and `<circle>` elements have to be positioned as percentages of the width and height of the parent `<svg>` element since the actual height and width can never be known for certain ahead of time. 
+
+The clock runs as you'd expect (`setInterval`) and to set the digits I first take the integer time returned by `.getHours/Minutes/Seconds()` and convert it into a two-character string. Each of those characters is used as the index to an array that has a string list of the individual segments to be turned on. I iterate over the `<path>` elements in my target `<svg>` turning on and off segments as needed.
