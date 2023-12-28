@@ -29,6 +29,43 @@ function makeElement(type, id, ...classes) {
   return element;
 }
 
+function makeSVG(type, id, ...classes) {
+  //----------------------------------------------------//
+  //Makes an SVG element of the type specified          //
+  //----------------------------------------------------//
+  //type(string): type of SVG element to create         //
+  //id(string): id of the element                       //
+  //classes(string): classes to add to the element      //
+  //----------------------------------------------------//
+  //return(element): SVG element                        //
+  //----------------------------------------------------//
+
+  let svg = document.createElementNS("http://www.w3.org/2000/svg", type);
+  if (typeof id === "string") {svg.id = id}
+  classes.forEach(x => svg.classList.add(x));
+  return svg;
+}
+
+function makeSVGcircle(x, y, r, id) {
+  //----------------------------------------------------//
+  //Makes an SVG <circle> element                       //
+  //----------------------------------------------------//
+  //x(float): the x coordinate of the circle's center   //
+  //y(float): the y coordinate of the circle's center   //
+  //r(float): the radius of the circle                  //
+  //----------------------------------------------------//
+  //return(element): SVG <circle> element               //
+  //----------------------------------------------------//
+
+  let circle = makeSVG("circle");
+  circle.setAttribute("cx", x);
+  circle.setAttribute("cy", y);
+  circle.setAttribute("r", r);
+  if (typeof id === "string") {circle.id = id}
+
+  return circle;
+}
+
 function insertLineBreak(element, repeat = 1) {
   //----------------------------------------------------//
   //Inserts a <br /> element into another element one   //
@@ -185,13 +222,31 @@ function launchClock() {
 }
 
 function buildDial() {
+  //----------------------------------------------------//
+  //
+  //----------------------------------------------------//
+
 
   function cleanTime(time) {
+    //----------------------------------------------------//
+    //Takes the sunrise/sunset time from the API and      //  
+    //  converts it into a string that can be read by the //
+    //  Date constructor                                  //
+    //----------------------------------------------------//
+    //time(string): the time output of the API            //
+    //----------------------------------------------------//
+    //return(string): the time output expected by the     //
+    //  Date constructor                                  //
+    //----------------------------------------------------//
 
+    //
+    //RegEx that isolates colons and spaces
     const reg = /:|\s/;
 
     let timeParts = time.split(reg);
 
+    //
+    //If the time is PM, add 12 to the hours
     if (timeParts.pop() === "PM") {
       timeParts[0] = (parseInt(timeParts[0], 10) + 12).toString(10);
     } else {
@@ -201,14 +256,15 @@ function buildDial() {
     return timeParts.join(":");
   }
 
-  console.log("building...");
-
   const yesterdayDeets = JSON.parse(localStorage.getItem("yesterdayDeets"));
   const todayDeets = JSON.parse(localStorage.getItem("todayDeets"));
   const tomorrowDeets = JSON.parse(localStorage.getItem("tomorrowDeets"));
 
-  let sunrise = new Date(`${todayDeets.date}T${cleanTime(todayDeets.sunrise)}`);
-  let sunset = new Date(`${todayDeets.date}T${cleanTime(todayDeets.sunset)}`);
+  const sunriseUTC = new Date(`${todayDeets.date}T${cleanTime(todayDeets.sunrise)}`);
+  const sunrise = new Date(sunriseUTC.getTime() - (sunriseUTC.getTimezoneOffset() * 60_000));
+
+  const sunsetUTC = new Date(`${todayDeets.date}T${cleanTime(todayDeets.sunset)}`);
+  const sunset = new Date(sunsetUTC.getTime() - (sunsetUTC.getTimezoneOffset() * 60_000));
 
 
   console.log(cleanTime(todayDeets.sunrise));
@@ -220,8 +276,16 @@ function buildDial() {
   console.log(`${daylight} ms, ${daylight / 1000} s, ${daylight / 60_000} min, ${daylight / 3_600_000} h`);
   console.log(`${tempHour} ms, ${tempHour / 1000} s, ${tempHour / 60_000} min, ${tempHour / 3_600_000} h`);
 
-  // (:|\s)
+  const sundialSVG = makeSVG("svg", "sundialSVG");
+  clearElement(document.body);
+  document.body.appendChild(sundialSVG);
+  const box = sundialSVG.getBoundingClientRect();
 
+  const sundialBase = makeSVGcircle((box.width * .5), (box.height * .5), (box.width * .4), "sundial-base");
+  sundialSVG.appendChild(sundialBase);
+
+  const sundialGnomon = makeSVGcircle((box.width * .5), (box.height * .5), (box.width * .01), "sundial-gnomon");
+  sundialSVG.appendChild(sundialGnomon) 
 
 }
 

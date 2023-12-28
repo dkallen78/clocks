@@ -1,0 +1,14 @@
+#sundialSVG {
+  height: 75svw;
+  width: 75svw;
+}
+
+#sundial-base {
+  fill-opacity: 0;
+  stroke: black;
+  stroke-width: .25svw;
+}
+
+#sundial-gnomon {
+
+}

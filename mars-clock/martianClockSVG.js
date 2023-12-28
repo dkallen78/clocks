@@ -26,10 +26,6 @@ function makeCircle(parent) {
   let circle = makeSVG("circle", "rim");
   circle.classList.add("circle");
 
-  //circle.style.stroke = "aqua";
-  //circle.style.strokeWidth = 3;
-  //circle.style.fill = "none";
-
   parent.appendChild(circle);
 
   return circle;
@@ -44,7 +40,6 @@ function makeCenter(parent) {
 
   let circle = makeSVG("circle", "center");
   circle.classList.add("circle");
-  //circle.style.fill = "aqua";
   parent.appendChild(circle);
 }
 
