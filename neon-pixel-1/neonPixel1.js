@@ -104,17 +104,20 @@ function makeDigit(target, digit) {
   //----------------------------------------------------//
   //Displays the digit in the DOM                       //
   //----------------------------------------------------//
-  //target(string): ID of the element containing the    //
-  //  pixel array that displays the digit               //
-  //digit
+  //target(string): ID of the element where the digit   //
+  //  will be displayed                                 //
+  //digit(array): the array with the pixel info of the  //
+  //  digit to be displayed                             //
   //----------------------------------------------------//
 
+  const pixels = document.querySelectorAll(`#${target.id} > div`);
 
-  let pixels = document.querySelectorAll("#" + target.id + " > div");
+  //
+  //Causes the shrinking effect of the "pixels" between digit changes
   if (pixels) {
     for (let i = 0; i < pixels.length; i++) {
-      pixels[i].style.width = "0rem";
-      pixels[i].style.height = "0rem";
+      pixels[i].style.width = "0";
+      pixels[i].style.height = "0";
     }
   }
 
