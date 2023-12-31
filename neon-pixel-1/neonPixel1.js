@@ -1,7 +1,6 @@
-
-let shownSeconds = 0;
-let shownMinutes = 0
-let shownHours = 0;
+let shownSeconds = -1;
+let shownMinutes = -1
+let shownHours = -1;
 
 let zero = [
   [1, 1, 1],
@@ -128,6 +127,10 @@ function makeDigit(target, digit) {
 
 }
 
+function hasFirstDigitChanged(shown,  now) {
+  return Math.floor(shown / 10) != Math.floor(Number(now) / 10);
+}
+
 let hour1 = document.getElementById("hour1");
 let hour2 = document.getElementById("hour2");
 let minute1 = document.getElementById("minute1");
@@ -148,15 +151,20 @@ let refreshInterval = setInterval(function() {
 
   if (shownHours !== hourNow) {
 
-    makeDigit(hour1, digit[hourNow[0]]);
+    if(hasFirstDigitChanged(shownHours, hourNow)) {
+      makeDigit(hour1, digit[hourNow[0]]);
+    }
+
     makeDigit(hour2, digit[hourNow[1]]);
 
     shownHours = hourNow;
   }
 
   if (shownMinutes !== minuteNow) {
+    if(hasFirstDigitChanged(shownMinutes, minuteNow)) {
+      makeDigit(minute1, digit[minuteNow[0]]);
+    }
 
-    makeDigit(minute1, digit[minuteNow[0]]);
     makeDigit(minute2, digit[minuteNow[1]]);
 
     shownMinutes = minuteNow;
@@ -164,7 +172,10 @@ let refreshInterval = setInterval(function() {
 
   if (shownSeconds !== secondNow) {
 
-    makeDigit(second1, digit[secondNow[0]]);
+    if(hasFirstDigitChanged(shownSeconds, secondNow)) {
+      makeDigit(second1, digit[secondNow[0]]);
+    }
+
     makeDigit(second2, digit[secondNow[1]]);
 
     shownSeconds = secondNow;
