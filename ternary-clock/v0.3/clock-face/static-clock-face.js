@@ -368,6 +368,9 @@ const center = new Point((box.width * .5), (box.height * .5));
 
 let maxRad = Math.sqrt(2 * ((box.width / 2) ** 2));
 
+
+//change this variable!
+//更改此变量
 let gap = .01;
 
 makeFace();
