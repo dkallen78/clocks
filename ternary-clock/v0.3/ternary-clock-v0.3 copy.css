@@ -1,0 +1,15 @@
+#main {
+	display: flex;
+}
+
+#svgBox {
+	margin: auto;
+	height: 90vh;
+	max-height: 100vw;
+	width: 90vh;
+	border-radius: 1vh;
+}
+
+path {
+	transition: transform 500ms;
+}
